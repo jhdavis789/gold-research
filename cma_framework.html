@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gold CMA — Valuation Framework</title>
+<style>
+  :root{
+    --paper:#f7f4ec;        /* cream */
+    --paper2:#fffdf7;
+    --ink:#2c2a33;          /* near-black, never #000 */
+    --ink2:#56525e;
+    --muted:#857f8c;
+    --line:#e2dccd;
+    --gold:#b8860b;
+    --gold2:#caa53d;
+    --goldsoft:#f3e9c9;
+    --up:#3f7d57;           /* raises gold demand */
+    --upsoft:#e2efe4;
+    --down:#a8503e;         /* lowers gold demand */
+    --downsoft:#f4e3dd;
+    --cb:#5a6db0;           /* central banks */
+    --cbsoft:#e7eaf6;
+    --ind:#9a5fa8;          /* individuals */
+    --indsoft:#f1e6f3;
+    --inv:#3f7d57;          /* investors */
+    --invsoft:#e2efe4;
+    --shadow:0 1px 2px rgba(44,42,51,.06),0 6px 24px rgba(44,42,51,.07);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:48px 28px 80px}
+  h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:600;letter-spacing:-.01em;line-height:1.18;margin:0}
+  h1{font-size:34px}
+  .sub{color:var(--ink2);font-size:17px;margin:10px 0 0;max-width:760px}
+  .eyebrow{font:600 12px/1 -apple-system,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .rule{height:1px;background:var(--line);border:0;margin:34px 0}
+  section{margin-top:46px}
+  .stitle{font-size:13px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .shead{font-size:25px;margin-bottom:6px}
+  .sdesc{color:var(--ink2);max-width:780px;margin:4px 0 24px}
+
+  /* ---- identity block ---- */
+  .identity{
+    background:var(--paper2);border:1px solid var(--line);border-radius:14px;
+    padding:22px 26px;box-shadow:var(--shadow);margin-top:26px
+  }
+  .eq{font-family:Georgia,serif;font-size:21px;color:var(--ink);letter-spacing:.01em}
+  .eq .v{color:var(--gold);font-style:italic}
+  .eq2{font-family:Georgia,serif;font-size:18px;color:var(--ink2);margin-top:14px;line-height:1.9}
+  .eq2 b{color:var(--ink);font-weight:600}
+  .term{display:inline-block;border-bottom:2px solid var(--goldsoft);padding-bottom:1px}
+  .base{margin-top:18px;padding:14px 16px;background:var(--goldsoft);border-radius:10px;font-size:15px;color:var(--ink)}
+  .base b{color:var(--gold)}
+
+  /* ---- funnel ---- */
+  .funnel{display:flex;flex-direction:column;gap:0}
+  .frow{display:grid;grid-template-columns:300px 1fr;gap:26px;align-items:stretch}
+  .node{
+    position:relative;background:var(--paper2);border:1px solid var(--line);border-left:5px solid var(--gold);
+    border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)
+  }
+  .node .tag{display:inline-block;font:700 12px/1 -apple-system,sans-serif;letter-spacing:.05em;color:#fff;background:var(--gold);border-radius:6px;padding:4px 8px;margin-bottom:9px}
+  .node h3{font-size:18px}
+  .node .expr{font-family:Georgia,serif;font-style:italic;color:var(--ink2);font-size:14.5px;margin-top:7px}
+  .node .num{margin-top:9px;font-size:13px;color:var(--gold);font-weight:600}
+  .op{
+    grid-column:1;justify-self:center;display:flex;flex-direction:column;align-items:center;
+    color:var(--muted);font-size:13px;padding:7px 0;font-family:Georgia,serif;font-style:italic
+  }
+  .op .arrow{font-size:22px;color:var(--gold2);line-height:1}
+  .op .opchip{background:var(--goldsoft);color:var(--gold);font-style:normal;font-weight:700;
+    border-radius:20px;padding:2px 12px;font-size:13px;margin-top:2px;font-family:-apple-system,sans-serif}
+  .drivers{align-self:center}
+  .drivers .dlab{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .dchips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{
+    display:inline-flex;align-items:center;gap:7px;background:var(--paper2);border:1px solid var(--line);
+    border-radius:9px;padding:7px 11px;font-size:13.5px;color:var(--ink);box-shadow:0 1px 1px rgba(44,42,51,.04)
+  }
+  .chip .ar{font-size:12px;font-weight:800}
+  .chip.up{border-color:#cfe2d4}.chip.up .ar{color:var(--up)}
+  .chip.down{border-color:#ecd2c9}.chip.down .ar{color:var(--down)}
+  .chip small{color:var(--muted);font-size:11.5px}
+
+  /* ---- holder table ---- */
+  .htable{width:100%;border-collapse:separate;border-spacing:0;margin-top:6px;box-shadow:var(--shadow);border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .htable th,.htable td{padding:14px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);font-size:14px}
+  .htable thead th{background:var(--paper2);font-family:Georgia,serif;font-size:17px;font-weight:600}
+  .htable thead th .who{display:block;font:700 11px/1 -apple-system,sans-serif;letter-spacing:.12em;text-transform:uppercase;margin-bottom:5px}
+  .col-cb{border-top:4px solid var(--cb)}
+  .col-ind{border-top:4px solid var(--ind)}
+  .col-inv{border-top:4px solid var(--inv)}
+  .col-cb .who{color:var(--cb)} .col-ind .who{color:var(--ind)} .col-inv .who{color:var(--inv)}
+  .htable td:first-child,.htable th:first-child{background:var(--paper2);font-weight:600;color:var(--ink2);width:172px;font-size:13px}
+  .goalrow td{font-size:13.5px;line-height:1.5}
+  .goalrow .col-cb{background:var(--cbsoft)}.goalrow .col-ind{background:var(--indsoft)}.goalrow .col-inv{background:var(--invsoft)}
+  .lev{display:inline-block;font:700 10px/1 -apple-system,sans-serif;letter-spacing:.04em;border-radius:5px;padding:3px 6px;margin-right:5px;vertical-align:middle}
+  .lev.s1{background:var(--goldsoft);color:var(--gold)}
+  .lev.s2{background:#e9e4f3;color:#6a5aa6}
+  .pri{font-weight:700}
+  .ar-up{color:var(--up);font-weight:800}.ar-dn{color:var(--down);font-weight:800}
+  .dim{color:var(--muted)}
+
+  /* ---- callouts & anchors ---- */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:8px}
+  .call{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow)}
+  .call.warn{border-left:5px solid var(--down)}
+  .call.push{border-left:5px solid var(--cb)}
+  .call h4{margin:0 0 8px;font-family:Georgia,serif;font-size:17px}
+  .call p{margin:0;color:var(--ink2);font-size:14px}
+  .call .flag{font:700 11px/1 -apple-system,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--down);margin-bottom:7px;display:block}
+  .call.push .flag{color:var(--cb)}
+  .anchors{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:8px}
+  .stat{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)}
+  .stat .big{font-family:Georgia,serif;font-size:27px;color:var(--gold);font-weight:600}
+  .stat .lab{font-size:12.5px;color:var(--ink2);margin-top:5px;line-height:1.35}
+  .stat .src{font-size:11px;color:var(--muted);margin-top:7px}
+
+  .refs{display:grid;grid-template-columns:1fr 1fr;gap:16px 28px;margin-top:6px}
+  .refs .ref{background:var(--paper2);border:1px solid var(--line);border-left:4px solid var(--gold2);border-radius:10px;padding:13px 16px;box-shadow:var(--shadow)}
+  .refs a{color:var(--gold);text-decoration:none;font-weight:600;font-size:14.5px}
+  .refs a:hover{text-decoration:underline}
+  .refs .rd{color:var(--ink2);font-size:13px;margin-top:4px}
+  footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  @media(max-width:820px){
+    .frow{grid-template-columns:1fr}.op{justify-self:start;flex-direction:row;gap:10px}
+    .anchors{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.refs{grid-template-columns:1fr}
+    .htable{display:block;overflow-x:auto}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Gold · Capital Market Assumptions</div>
+  <h1>A top-down valuation framework for gold</h1>
+  <p class="sub">Gold's price is a chain of shares: a slice of the world's hedge demand, which is a slice of the world's wealth — divided by a slowly growing pile of ounces. Written multiplicatively it's a funnel; written in logs it's an <em>additive expected-return identity</em>, which is exactly what a CMA needs to output.</p>
+
+  <p style="margin:16px 0 0"><a href="holders/holders.html" style="display:inline-block;background:var(--goldsoft);border:1px solid var(--gold2);border-radius:10px;padding:10px 16px;color:var(--gold);font-weight:600;text-decoration:none">&#9733; The World's Gold Holders — share of reserves &amp; tonnes of gold by top country, over time &rarr;</a></p>
+
+  <div class="identity">
+    <div class="eq"><span class="v">P</span> &nbsp;=&nbsp; ( <span class="v">W</span> &times; <span class="v">s&#8321;</span> &times; <span class="v">s&#8322;</span> ) &nbsp;&divide;&nbsp; <span class="v">Q</span></div>
+    <div class="eq2">
+      &part; ln P &nbsp;=&nbsp;
+      <span class="term"><b>nominal wealth growth</b></span> &nbsp;+&nbsp;
+      <span class="term">&Delta; <b>hedge share</b></span> &nbsp;+&nbsp;
+      <span class="term">&Delta; <b>gold-of-hedges share</b></span> &nbsp;&minus;&nbsp;
+      <span class="term"><b>supply growth</b></span>
+    </div>
+    <div class="base">
+      <b>Two reference cases fall out cleanly.</b> <u>Share-constant</u>: hold both share terms flat — gold keeps its current slice — and
+      E[return] = (population + productivity + inflation) &minus; ~1.6% supply &asymp; <b>~3–4% nominal / +0.5–1% real</b>.
+      But "flat" is not neutral — it holds gold at its <b>97th-percentile share</b> (see anchors below). The honest <u>mean-reversion</u> neutral lets &Delta;ln(s&#8321;·s&#8322;) run <em>negative</em> toward the historical median, pulling the base case <b>below</b> that. Your active thesis (debasement, distrust, real rates, war) is the gap between the two — a scenario overlay, not a free-handed target.
+    </div>
+  </div>
+
+  <div class="call" style="margin-top:18px;border-left:5px solid var(--gold2)">
+    <span class="flag" style="color:var(--gold)">Frame — what this can and can't do</span>
+    <h4>It's a stock identity, so a share is an outcome, not a driver</h4>
+    <p>P = W&middot;s&#8321;&middot;s&#8322;/Q is an accounting identity — it gives the price <em>consistent with</em> a set of shares, but doesn't itself say why the shares move. The engine underneath is the <b>marginal flow</b>: net new official + investment demand clearing against a near-fixed ~1.6%/yr supply flow. Treat the funnel as scaffolding for a scenario, and the holder table below as the flow mechanism that fills it in. (Numerator G and denominator Q are both <b>total above-ground</b> gold, so G/Q = spot exactly — no monetary-vs-jewellery mismatch.)</p>
+  </div>
+
+  <hr class="rule">
+
+  <!-- ============ FUNNEL ============ -->
+  <section>
+    <div class="stitle">The chain</div>
+    <h2 class="shead">The funnel &mdash; and what varies each layer</h2>
+    <p class="sdesc">Left: the four stacked quantities that multiply (then divide) into a gold price. Right: the variables that move each layer, tagged ▲ (raises gold) or ▼ (lowers gold).</p>
+
+    <div class="funnel">
+
+      <!-- W -->
+      <div class="frow">
+        <div class="node">
+          <span class="tag">W</span>
+          <h3>Global wealth (nominal)</h3>
+          <div class="expr">grows at (pop + productivity)<sub>real</sub> + inflation</div>
+          <div class="num">~2–2.5% real + 2–3% infl &rarr; ~4.5–5.5% nominal</div>
+        </div>
+        <div class="drivers">
+          <div class="dlab">What moves W</div>
+          <div class="dchips">
+            <span class="chip up"><span class="ar">▲</span> Population growth <small>more savers</small></span>
+            <span class="chip up"><span class="ar">▲</span> Productivity growth <small>real output</small></span>
+            <span class="chip up"><span class="ar">▲</span> Inflation / broad debasement <small>lifts ALL nominal assets</small></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="frow"><div class="op"><span class="arrow">&darr;</span><span class="opchip">&times; s&#8321;</span></div></div>
+
+      <!-- H -->
+      <div class="frow">
+        <div class="node">
+          <span class="tag">H</span>
+          <h3>Hedge / store-of-value bucket</h3>
+          <div class="expr">s&#8321; = H / W &nbsp;·&nbsp; "assets held to hedge fiat &amp; disorder"</div>
+          <div class="num">FX reserves + monetary &amp; investment gold + BTC + defensive sovereigns</div>
+        </div>
+        <div class="drivers">
+          <div class="dlab">What moves the hedge share s&#8321;</div>
+          <div class="dchips">
+            <span class="chip up"><span class="ar">▲</span> Geopolitical instability / p(war)</span>
+            <span class="chip up"><span class="ar">▲</span> Sanction &amp; asset-seizure risk <small>2022 reserve freeze</small></span>
+            <span class="chip up"><span class="ar">▲</span> Fiscal / sovereign-debt stress <small>debt/GDP</small></span>
+            <span class="chip up"><span class="ar">▲</span> Financial repression <small>negative real <em>cash</em> rate · DTB3</small></span>
+            <span class="chip up"><span class="ar">▲</span> Inflation-volatility regime</span>
+            <span class="chip up"><span class="ar">▲</span> Stock–bond correlation breakdown <small>diversifier demand</small></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="frow"><div class="op"><span class="arrow">&darr;</span><span class="opchip">&times; s&#8322;</span></div></div>
+
+      <!-- G -->
+      <div class="frow">
+        <div class="node">
+          <span class="tag">G</span>
+          <h3>Gold total market cap</h3>
+          <div class="expr">s&#8322; = G / H &nbsp;·&nbsp; gold's slice of the hedge bucket</div>
+          <div class="num">all above-ground gold, vs FX reserves, TIPS, BTC, other metals</div>
+        </div>
+        <div class="drivers">
+          <div class="dlab">What moves the gold-of-hedges share s&#8322;</div>
+          <div class="dchips">
+            <span class="chip down"><span class="ar">▼</span> 10y real rate <small>opportunity cost · DFII10 · β &asymp; &minus;0.069/Δreal</small></span>
+            <span class="chip up"><span class="ar">▲</span> USD debasement <small>chronic erosion, excess of measured CPI</small></span>
+            <span class="chip up"><span class="ar">▲</span> Runaway inflation fears <small>right-tail / spiral premium &mdash; vs chronic debasement</small></span>
+            <span class="chip up"><span class="ar">▲</span> Reserve-currency diversification <small>multipolar vs USD hegemony</small></span>
+            <span class="chip up"><span class="ar">▲</span> Falling trust in govt / rule of law</span>
+            <span class="chip up"><span class="ar">▲</span> Government debt / fiscal trajectory <small>gold = the only hedge with no issuer</small></span>
+            <span class="chip down"><span class="ar">▼</span> BTC stealing hedge share</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="frow"><div class="op"><span class="arrow">&darr;</span><span class="opchip">&divide; Q</span></div></div>
+
+      <!-- P -->
+      <div class="frow">
+        <div class="node" style="border-left-color:var(--ink)">
+          <span class="tag" style="background:var(--ink)">P</span>
+          <h3>Gold price / oz</h3>
+          <div class="expr">P = G / Q</div>
+          <div class="num">Q = above-ground ounces, +~1.6%/yr</div>
+        </div>
+        <div class="drivers">
+          <div class="dlab">What moves supply Q</div>
+          <div class="dchips">
+            <span class="chip down"><span class="ar">▼</span> Mine supply <small>~3,600 t/yr dilutes the stock</small></span>
+            <span class="chip down"><span class="ar">▼</span> Recycling <small>price-elastic scrap</small></span>
+            <span class="chip up"><span class="ar">▲</span> (Net) above-ground stock is near-permanent <small>low destruction</small></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ============ WHO BUYS ============ -->
+  <section>
+    <div class="stitle">The marginal buyers</div>
+    <h2 class="shead">Who buys gold, and why</h2>
+    <p class="sdesc">Three buyers, three objective functions — each keys off a different part of the funnel above.</p>
+
+    <table class="htable">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="col-cb"><span class="who">Central banks</span>Official reserve managers</th>
+          <th class="col-ind"><span class="who">Individuals</span>Households, especially EM</th>
+          <th class="col-inv"><span class="who">Investors</span>Funds &amp; allocators</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="goalrow">
+          <td>Goal</td>
+          <td class="col-cb">A reserve no one can freeze, default on, or debase.</td>
+          <td class="col-ind">Savings that outlast their own government and currency.</td>
+          <td class="col-inv">Make money, and own the hedge stocks and bonds can't provide.</td>
+        </tr>
+        <tr>
+          <td>Core drivers<br><span class="dim">what matters</span></td>
+          <td class="col-cb">
+            <div class="dchips">
+              <span class="chip">Sanction &amp; asset-freeze risk</span>
+              <span class="chip">USD-reserve concentration</span>
+              <span class="chip">Geopolitical fragmentation</span>
+              <span class="chip">Peer central-bank flows</span>
+            </div>
+            <div style="margin-top:9px;font-size:12px;color:var(--muted)">Scales off the size of FX reserves — not global wealth.</div>
+          </td>
+          <td class="col-ind">
+            <div class="dchips">
+              <span class="chip">Home-currency debasement &amp; inflation</span>
+              <span class="chip">Trust in own government &amp; courts</span>
+              <span class="chip">Capital-control risk</span>
+              <span class="chip">Cultural &amp; precautionary demand</span>
+            </div>
+          </td>
+          <td class="col-inv">
+            <div class="dchips">
+              <span class="chip">10y real rate <small>DFII10 · β &minus;0.069</small></span>
+              <span class="chip">USD direction <small>real corr &minus;0.72</small></span>
+              <span class="chip">Breakeven inflation <small>β +0.021</small></span>
+              <span class="chip">ETF flows &amp; momentum</span>
+              <span class="chip">BTC as substitute</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ============ ANCHORS ============ -->
+  <section>
+    <div class="stitle">Caveats</div>
+    <h2 class="shead">Two things to keep honest</h2>
+
+    <div class="grid2" style="margin-top:18px">
+      <div class="call push">
+        <span class="flag">Pushback — total wealth to banks</span>
+        <h4>Central banks don't scale off global wealth</h4>
+        <p>You floated "total wealth" as the central-bank base — I'd push back. A reserve manager's gold demand scales off <b>the size and USD-concentration of its own FX reserve pile</b> (~$12–13T globally), which is driven by trade and current-account surpluses, not aggregate world wealth. Total wealth is the right scaler for <em>households and investors</em>, who hold gold as a share of personal/portfolio wealth. So H really has two sub-bases: a wealth-scaled retail+investor channel, and a reserves-scaled official channel. Post-2022 the official channel has been the marginal price-setter — which is why your static real-rate fit broke.</p>
+      </div>
+      <div class="call warn">
+        <span class="flag">Caution — don't double-count across layers</span>
+        <h4>Three variables touch two layers each — partition them</h4>
+        <p><b>Inflation:</b> it lifts all nominal assets via W, so s&#8322;'s "debasement" must be the <em>excess</em> beyond CPI (the regime premium — proxy with CB net buying / real-rate gap / lease rates), or you lift gold with inflation twice. <b>Real rates:</b> the s&#8321; "financial repression" lever is the real <em>cash</em> rate (DTB3); s&#8322;'s opportunity-cost leg is the 10y real rate (DFII10) — keep them as the two distinct factors your model already separates, don't apply one shock twice. <b>Sanctions:</b> raise overall hedge demand (s&#8321;) <em>and</em> shift gold's share within reserves (s&#8322;) — apply once per layer with separate elasticities. Calibrate the s&#8322; rate leg to your factor-model betas, not by hand.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ============ REFERENCES ============ -->
+  <section>
+    <div class="stitle">References</div>
+    <h2 class="shead">Gold reserves &amp; holdings, by country</h2>
+    <p class="sdesc">Primary cross-country data for the share-of-reserves, central-bank-flow, and by-market demand inputs to s&#8321; and s&#8322;.</p>
+    <div class="refs">
+      <div class="ref" style="border-left-color:var(--gold);grid-column:1 / -1">
+        <a href="holders/holders.html">&#9733; Our build — The World's Gold Holders, by country</a>
+        <div class="rd">Official central-bank reserves <em>and</em> private/household gold, country by country — the in-house companion that fills in the s&#8321;/s&#8322; cross-section this framework describes.</div>
+      </div>
+      <div class="ref">
+        <a href="https://www.gold.org/goldhub/data/gold-reserves-by-country" target="_blank" rel="noopener">WGC — Gold reserves by country</a>
+        <div class="rd">Tonnes <em>and</em> gold as a % of total reserves, every country, updated monthly. The core s&#8322; cross-section.</div>
+      </div>
+      <div class="ref">
+        <a href="https://www.gold.org/goldhub/data/monthly-central-bank-statistics" target="_blank" rel="noopener">WGC — Monthly central-bank statistics</a>
+        <div class="rd">Net official buying/selling by country, monthly — the post-2022 marginal-buyer flow.</div>
+      </div>
+      <div class="ref">
+        <a href="https://www.gold.org/goldhub/data/gold-demand-by-country" target="_blank" rel="noopener">WGC — Gold demand by country</a>
+        <div class="rd">Jewellery + bar/coin investment demand by market (India, China, Turkey, Gulf…) — the EM-heavy retail channel.</div>
+      </div>
+      <div class="ref">
+        <a href="https://data.imf.org/en/datasets/IMF.STA:COFER" target="_blank" rel="noopener">IMF — COFER (reserve-currency composition)</a>
+        <div class="rd">USD / EUR / RMB / other share of allocated FX reserves, quarterly — the USD-concentration input.</div>
+      </div>
+      <div class="ref">
+        <a href="https://tradingeconomics.com/country-list/gold-reserves" target="_blank" rel="noopener">Trading Economics — Gold reserves league table</a>
+        <div class="rd">Quick sortable cross-country view of official gold holdings (tonnes).</div>
+      </div>
+      <div class="ref">
+        <a href="https://www.chainalysis.com/blog/2025-global-crypto-adoption-index/" target="_blank" rel="noopener">Chainalysis — Geography of Crypto 2025</a>
+        <div class="rd">EM-vs-DM split of crypto adoption — context for BTC as a rival hedge (EM by users, DM by capital).</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Gold CMA valuation framework · reconciles <code>asset_share/</code> (history) + <code>factor_model/</code> (drivers)</span>
+    <span>By JAOD &amp; (mainly) Claude · as of 2026-06-05</span>
+  </footer>
+
+</div>
+</body>
+</html>

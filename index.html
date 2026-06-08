@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gold Research — Index</title>
+<style>
+  :root{
+    --paper:#f7f4ec; --paper2:#fffdf7; --ink:#2c2a33; --muted:#857f8c;
+    --gold:#b8860b; --goldsoft:#f3e9c9; --line:#e2dccd;
+    --shadow:0 1px 2px rgba(44,42,51,.06),0 6px 24px rgba(44,42,51,.07);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:var(--paper); color:var(--ink);
+    line-height:1.5; padding:56px 20px 80px;
+  }
+  .wrap{max-width:820px;margin:0 auto}
+  .eyebrow{
+    font-family:-apple-system,sans-serif; text-transform:uppercase;
+    letter-spacing:.16em; font-size:11px; font-weight:600; color:var(--gold);
+    margin-bottom:14px;
+  }
+  h1{font-family:Georgia,"Times New Roman",serif; font-weight:600; font-size:34px; letter-spacing:-.01em; line-height:1.15}
+  .lede{font-family:Georgia,serif; color:var(--muted); font-size:17px; margin-top:12px; max-width:640px}
+  .rule{height:1px;background:var(--line);margin:30px 0 8px}
+  ul{list-style:none}
+  li a{
+    display:block; text-decoration:none; color:inherit;
+    background:var(--paper2); border:1px solid var(--line); border-radius:8px;
+    padding:18px 22px; margin-top:14px; box-shadow:var(--shadow);
+    transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+  }
+  li a:hover{transform:translateY(-2px); border-color:var(--gold);
+    box-shadow:0 2px 4px rgba(44,42,51,.08),0 12px 32px rgba(44,42,51,.12)}
+  .num{
+    display:inline-block; font-family:Georgia,serif; font-size:13px; color:var(--gold);
+    background:var(--goldsoft); border-radius:5px; padding:1px 8px; margin-right:10px;
+    vertical-align:1px;
+  }
+  .t{font-family:Georgia,serif; font-size:19px; font-weight:600}
+  .d{color:var(--muted); font-size:14.5px; margin-top:5px; padding-left:0}
+  .arrow{float:right; color:var(--line); font-size:20px; line-height:1; margin-top:2px}
+  li a:hover .arrow{color:var(--gold)}
+  footer{margin-top:40px; color:var(--muted); font-size:12.5px; font-family:Georgia,serif}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Gold · Capital-Markets Research</div>
+  <h1>Gold Research</h1>
+  <p class="lede">A set of interactive notes on valuing gold — from where it sits in the asset universe, to who holds it, to a fair-value model and the demand and de-dollarization forces behind it.</p>
+  <div class="rule"></div>
+  <ul>
+    <li><a href="cma_framework.html">
+      <span class="arrow">&rsaquo;</span>
+      <div class="t"><span class="num">1</span>Gold CMA — Valuation Framework</div>
+      <div class="d">A top-down funnel for valuing gold, showing what varies at each layer of the capital-markets-assumption stack.</div>
+    </a></li>
+    <li><a href="cma_litreview/fv_history.html">
+      <span class="arrow">&rsaquo;</span>
+      <div class="t"><span class="num">2</span>Gold model vs actual — history</div>
+      <div class="d">The fair-value model's output charted against gold's actual price over time, with the residual gap.</div>
+    </a></li>
+    <li><a href="factor_model/gold_demand_drivers_v1_5.html">
+      <span class="arrow">&rsaquo;</span>
+      <div class="t"><span class="num">3</span>Gold price vs demand, rates &amp; inflation (v1.5)</div>
+      <div class="d">Factor model linking gold to central-bank &amp; ETF demand, real rates and inflation expectations — univariate fits plus lead/lag.</div>
+    </a></li>
+    <li><a href="asset_share/gold_share.html">
+      <span class="arrow">&rsaquo;</span>
+      <div class="t"><span class="num">4</span>Gold as a share of the US asset universe</div>
+      <div class="d">Above-ground gold's value against three progressively wider US asset bases, 1975–2025, with a toggle for the denominator.</div>
+    </a></li>
+    <li><a href="holders/holders.html">
+      <span class="arrow">&rsaquo;</span>
+      <div class="t"><span class="num">5</span>The World's Gold Holders</div>
+      <div class="d">Who owns gold — central-bank official reserves versus household holdings, broken out by country.</div>
+    </a></li>
+    <li><a href="cma_litreview/dedollarization_recreate/recreation.html">
+      <span class="arrow">&rsaquo;</span>
+      <div class="t"><span class="num">6</span>The Stealth Erosion of Dollar Dominance — recreated &amp; extended</div>
+      <div class="d">A recreation and extension of the dollar-reserve-share study (active vs passive, constant-FX) behind the de-dollarization gold thesis.</div>
+    </a></li>
+  </ul>
+  <footer>Interactive HTML notes · charts may take a moment to render.</footer>
+</div>
+</body>
+</html>

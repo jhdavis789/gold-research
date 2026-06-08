@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Gold as a share of US asset bases · 1975-2025</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="chart.umd.min.js"></script>
+<script src="chartjs-plugin-zoom.min.js"></script>
+<style>
+  :root{
+    --bg:#FFFFFF; --ink:#1A1A1A; --mute:#666; --rule:#E5E5E5; --tint:#FAFAFA;
+    --gold:#A85F1E; --teal:#1F4E5F; --slate:#7A8B99;
+    --sans:"Inter",-apple-system,"Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{background:var(--bg);color:var(--ink);margin:0;padding:0;}
+  body{font-family:var(--sans);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 32px;}
+  code{font-family:ui-monospace,Menlo,monospace;font-size:12px;background:var(--tint);padding:1px 5px;border-radius:3px;}
+  .mast{padding:40px 0 24px;border-bottom:1px solid var(--rule);}
+  .mast-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--mute);font-weight:500;margin-bottom:14px;}
+  h1{font-size:30px;font-weight:700;letter-spacing:-0.02em;margin:0 0 8px;line-height:1.2;}
+  h1 + p{color:var(--mute);font-size:14.5px;margin:0;max-width:760px;}
+  section{padding:28px 0;border-bottom:1px solid var(--rule);}
+  section:last-of-type{border-bottom:0;}
+  h2{font-size:18px;font-weight:600;letter-spacing:-0.012em;margin:0 0 14px;}
+  .toggle{display:inline-flex;flex-wrap:wrap;gap:2px;padding:3px;background:var(--tint);border:1px solid var(--rule);border-radius:999px;margin-bottom:16px;}
+  .tbtn,.ubtn{font-family:var(--sans);font-size:12.5px;font-weight:500;color:var(--mute);background:transparent;border:0;cursor:pointer;padding:7px 15px;border-radius:999px;}
+  .tbtn.active,.ubtn.active{color:var(--ink);background:var(--bg);box-shadow:0 1px 2px rgba(0,0,0,.06);}
+  .tbtn:hover:not(.active),.ubtn:hover:not(.active){color:var(--ink);}
+  .chart-head{display:flex;justify-content:space-between;gap:8px;align-items:baseline;margin-bottom:10px;}
+  .chart-title{font-size:14.5px;font-weight:600;}
+  .chart-source{font-size:11.5px;color:var(--mute);}
+  .chart-box{height:440px;}
+  .stat-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 4px;}
+  .stat-cell{padding:14px;border:1px solid var(--rule);border-radius:4px;background:var(--tint);}
+  .stat-cell .lbl{font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;font-weight:600;}
+  .stat-cell .val{font-size:22px;font-weight:700;letter-spacing:-0.012em;}
+  .stat-cell .sub{font-size:11.5px;color:var(--mute);margin-top:4px;}
+  .fn{font-size:11.5px;color:var(--mute);line-height:1.5;margin:14px 0 0;}
+  table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px;}
+  th,td{padding:7px 9px;text-align:right;border-bottom:1px solid var(--rule);font-variant-numeric:tabular-nums;}
+  th{background:var(--tint);font-weight:600;font-size:11.5px;}
+  th:first-child,td:first-child{text-align:left;}
+  .colophon{padding:22px 0 60px;font-size:12px;color:var(--mute);}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="mast">
+    <div class="mast-meta"><span>GOLDBTC · asset-share</span><span>Annual, 1975-2025 · By JAOD &amp; (mainly) Claude</span></div>
+    <h1>Gold as a share of the US asset universe</h1>
+    <p>The value of all above-ground gold, measured against three progressively wider US asset bases.
+       Same numerator throughout; only the denominator grows. Toggle the base below.</p>
+  </header>
+
+  <section>
+    <div class="toggle" role="tablist">
+      <button class="tbtn active" data-view="d1" type="button">vs Equities + corp bonds</button>
+      <button class="tbtn" data-view="d2" type="button">vs All financial assets</button>
+      <button class="tbtn" data-view="d3" type="button">vs Total incl housing</button>
+      <button class="tbtn" data-view="all" type="button">Compare all three</button>
+      <button class="tbtn" data-view="levels" type="button">$ levels: gold vs total assets</button>
+    </div>
+    <div class="toggle" role="tablist" style="margin-left:10px;">
+      <button class="ubtn active" data-usd="nom" type="button">Nominal USD</button>
+      <button class="ubtn" data-usd="adj" type="button">Dollar-neutral gold</button>
+    </div>
+    <div class="chart-head">
+      <div class="chart-title" id="ctitle"></div>
+      <div class="chart-source">Source: <code>build_data.py</code> · Fed Z.1 / FRED · WGC · LBMA</div>
+    </div>
+    <div class="chart-box"><canvas id="chart"></canvas></div>
+    <p class="fn" style="opacity:.7">Scroll to zoom (over an axis zooms just that axis) · drag to pan · double-click to reset.</p>
+    <p class="fn" id="cnote"></p>
+
+    <div class="stat-strip" id="stats"></div>
+  </section>
+
+  <section>
+    <h2>Underlying data</h2>
+    <div style="overflow-x:auto;"><table id="tbl"><thead></thead><tbody></tbody></table></div>
+  </section>
+
+  <div class="colophon">
+    Numerator: world above-ground gold stock (WGC anchors, interpolated) &times; annual-avg LBMA $/oz.
+    Denominators (US, year-end): corp equities <code>NCBEILQ027S+FBCELLQ027S</code>; corp+foreign bonds <code>ASCFBL</code>;
+    federal public debt <code>GFDEBTN</code> (gross); <code>M1SL</code> (Dec); owner-occupied real estate <code>BOGZ1FL155035015Q</code>.
+    Gold is a single global market priced worldwide; there is no clean US-only above-ground-gold series, so the numerator is the
+    global stock against the US asset base. M1 was redefined May 2020 (savings deposits folded in) &mdash; a one-time level break in the
+    financial-asset and total bases. Figures revised by source publishers.
+  </div>
+</main>
+
+<script>
+const DATA = {"asof":"2026-06-05","usd_adjustment":{"beta":-0.9753,"r2":0.0767,"n_months":640,"window":"1973-02..2026-05","base":"50yr geomean dollar","base_twusd":93.2,"method":"OLS of monthly d-log(gold) on d-log(trade-weighted USD); gold_adj = gold*(TWUSD_t/TWUSD_base)^(-beta), base = 1975-2025 geomean. TWUSD = TWEXMMTH spliced to TWEXAFEGSMTH."},"definitions":{"numerator":"global above-ground gold stock (t) * 32150.7 oz/t * annual-avg LBMA $/oz","D1_equities_plus_corp_bonds":"US corp equities mkt value (NCBEILQ027S+FBCELLQ027S) + all-sectors corporate & foreign bonds (ASCFBL)","D2_all_financial_assets":"D1 + gross federal public debt (GFDEBTN) + M1 (M1SL, Dec)","D3_total_incl_housing":"D2 + households owner-occupied real estate at market value (BOGZ1FL155035015Q)","frequency":"annual, year-end (Z.1 Q4 level; M1 December)","scope_note":"denominators are US (Fed Z.1/FRED); numerator is the global gold stock (one world price). M1 redefined May 2020 -> visible level break in D2/D3."},"sources":["Gold price: LBMA annual-average $/oz","Above-ground stock: World Gold Council annual estimates (anchors, linearly interpolated)","Federal Reserve Z.1 Financial Accounts via FRED: NCBEILQ027S, FBCELLQ027S, ASCFBL, GFDEBTN, BOGZ1FL155035015Q","FRED M1SL"],"series":[{"year":1975,"gold_stock_t":98500,"gold_price":161,"gold_mcap_tn":0.51,"gold_mcap_adj_tn":0.578,"global_total_tn":65.0,"pct_global":0.78,"pct_global_adj":0.89,"usd_factor":1.134,"pct_d1_adj":49.53,"pct_d2_adj":28.47,"pct_d3_adj":16.79,"equities_tn":0.83,"corp_bonds_tn":0.34,"sovereign_tn":0.58,"m1_tn":0.29,"housing_tn":1.41,"d1_tn":1.17,"d2_tn":2.03,"d3_tn":3.44,"pct_d1":43.67,"pct_d2":25.1,"pct_d3":14.8},{"year":1976,"gold_stock_t":100000,"gold_price":125,"gold_mcap_tn":0.402,"gold_mcap_adj_tn":0.463,"global_total_tn":70.0,"pct_global":0.57,"pct_global_adj":0.66,"usd_factor":1.153,"pct_d1_adj":33.07,"pct_d2_adj":19.62,"pct_d3_adj":11.73,"equities_tn":1.02,"corp_bonds_tn":0.38,"sovereign_tn":0.65,"m1_tn":0.31,"housing_tn":1.59,"d1_tn":1.4,"d2_tn":2.36,"d3_tn":3.95,"pct_d1":28.69,"pct_d2":17.03,"pct_d3":10.17},{"year":1977,"gold_stock_t":101500,"gold_price":148,"gold_mcap_tn":0.483,"gold_mcap_adj_tn":0.528,"global_total_tn":75.0,"pct_global":0.64,"pct_global_adj":0.7,"usd_factor":1.094,"pct_d1_adj":39.78,"pct_d2_adj":22.22,"pct_d3_adj":12.39,"equities_tn":0.91,"corp_bonds_tn":0.42,"sovereign_tn":0.72,"m1_tn":0.33,"housing_tn":1.89,"d1_tn":1.33,"d2_tn":2.38,"d3_tn":4.26,"pct_d1":36.36,"pct_d2":20.31,"pct_d3":11.32},{"year":1978,"gold_stock_t":103000,"gold_price":193,"gold_mcap_tn":0.639,"gold_mcap_adj_tn":0.648,"global_total_tn":80.0,"pct_global":0.8,"pct_global_adj":0.81,"usd_factor":1.015,"pct_d1_adj":46.04,"pct_d2_adj":25.38,"pct_d3_adj":13.61,"equities_tn":0.96,"corp_bonds_tn":0.45,"sovereign_tn":0.79,"m1_tn":0.36,"housing_tn":2.21,"d1_tn":1.41,"d2_tn":2.56,"d3_tn":4.77,"pct_d1":45.37,"pct_d2":25.01,"pct_d3":13.41},{"year":1979,"gold_stock_t":104500,"gold_price":306,"gold_mcap_tn":1.028,"gold_mcap_adj_tn":1.058,"global_total_tn":85.0,"pct_global":1.21,"pct_global_adj":1.24,"usd_factor":1.029,"pct_d1_adj":65.64,"pct_d2_adj":37.27,"pct_d3_adj":19.44,"equities_tn":1.13,"corp_bonds_tn":0.48,"sovereign_tn":0.85,"m1_tn":0.38,"housing_tn":2.6,"d1_tn":1.61,"d2_tn":2.84,"d3_tn":5.44,"pct_d1":63.78,"pct_d2":36.22,"pct_d3":18.89},{"year":1980,"gold_stock_t":106000,"gold_price":615,"gold_mcap_tn":2.096,"gold_mcap_adj_tn":2.172,"global_total_tn":90.0,"pct_global":2.33,"pct_global_adj":2.41,"usd_factor":1.036,"pct_d1_adj":108.9,"pct_d2_adj":65.16,"pct_d3_adj":34.6,"equities_tn":1.48,"corp_bonds_tn":0.52,"sovereign_tn":0.93,"m1_tn":0.41,"housing_tn":2.94,"d1_tn":1.99,"d2_tn":3.33,"d3_tn":6.28,"pct_d1":105.1,"pct_d2":62.89,"pct_d3":33.4},{"year":1981,"gold_stock_t":107600,"gold_price":460,"gold_mcap_tn":1.591,"gold_mcap_adj_tn":1.796,"global_total_tn":97.4,"pct_global":1.63,"pct_global_adj":1.84,"usd_factor":1.129,"pct_d1_adj":93.4,"pct_d2_adj":53.0,"pct_d3_adj":26.88,"equities_tn":1.37,"corp_bonds_tn":0.56,"sovereign_tn":1.03,"m1_tn":0.44,"housing_tn":3.29,"d1_tn":1.92,"d2_tn":3.39,"d3_tn":6.68,"pct_d1":82.76,"pct_d2":46.97,"pct_d3":23.82},{"year":1982,"gold_stock_t":109200,"gold_price":376,"gold_mcap_tn":1.32,"gold_mcap_adj_tn":1.655,"global_total_tn":104.8,"pct_global":1.26,"pct_global_adj":1.58,"usd_factor":1.253,"pct_d1_adj":76.63,"pct_d2_adj":43.19,"pct_d3_adj":22.73,"equities_tn":1.55,"corp_bonds_tn":0.61,"sovereign_tn":1.2,"m1_tn":0.47,"housing_tn":3.45,"d1_tn":2.16,"d2_tn":3.83,"d3_tn":7.28,"pct_d1":61.14,"pct_d2":34.46,"pct_d3":18.14},{"year":1983,"gold_stock_t":110800,"gold_price":424,"gold_mcap_tn":1.51,"gold_mcap_adj_tn":2.002,"global_total_tn":112.2,"pct_global":1.35,"pct_global_adj":1.78,"usd_factor":1.325,"pct_d1_adj":80.77,"pct_d2_adj":45.39,"pct_d3_adj":24.87,"equities_tn":1.83,"corp_bonds_tn":0.65,"sovereign_tn":1.41,"m1_tn":0.52,"housing_tn":3.64,"d1_tn":2.48,"d2_tn":4.41,"d3_tn":8.05,"pct_d1":60.95,"pct_d2":34.25,"pct_d3":18.76},{"year":1984,"gold_stock_t":112400,"gold_price":361,"gold_mcap_tn":1.305,"gold_mcap_adj_tn":1.889,"global_total_tn":119.6,"pct_global":1.09,"pct_global_adj":1.58,"usd_factor":1.448,"pct_d1_adj":75.54,"pct_d2_adj":40.06,"pct_d3_adj":21.16,"equities_tn":1.76,"corp_bonds_tn":0.74,"sovereign_tn":1.66,"m1_tn":0.55,"housing_tn":4.21,"d1_tn":2.5,"d2_tn":4.72,"d3_tn":8.92,"pct_d1":52.17,"pct_d2":27.67,"pct_d3":14.62},{"year":1985,"gold_stock_t":114000,"gold_price":317,"gold_mcap_tn":1.162,"gold_mcap_adj_tn":1.504,"global_total_tn":127.0,"pct_global":0.91,"pct_global_adj":1.18,"usd_factor":1.295,"pct_d1_adj":48.42,"pct_d2_adj":26.52,"pct_d3_adj":14.29,"equities_tn":2.23,"corp_bonds_tn":0.88,"sovereign_tn":1.95,"m1_tn":0.62,"housing_tn":4.85,"d1_tn":3.11,"d2_tn":5.67,"d3_tn":10.52,"pct_d1":37.4,"pct_d2":20.48,"pct_d3":11.04},{"year":1986,"gold_stock_t":115700,"gold_price":368,"gold_mcap_tn":1.369,"gold_mcap_adj_tn":1.554,"global_total_tn":135.6,"pct_global":1.01,"pct_global_adj":1.15,"usd_factor":1.135,"pct_d1_adj":41.72,"pct_d2_adj":23.32,"pct_d3_adj":12.91,"equities_tn":2.61,"corp_bonds_tn":1.12,"sovereign_tn":2.21,"m1_tn":0.72,"housing_tn":5.37,"d1_tn":3.72,"d2_tn":6.66,"d3_tn":12.04,"pct_d1":36.75,"pct_d2":20.54,"pct_d3":11.37},{"year":1987,"gold_stock_t":117400,"gold_price":447,"gold_mcap_tn":1.687,"gold_mcap_adj_tn":1.626,"global_total_tn":144.2,"pct_global":1.17,"pct_global_adj":1.13,"usd_factor":0.964,"pct_d1_adj":41.74,"pct_d2_adj":22.97,"pct_d3_adj":12.54,"equities_tn":2.62,"corp_bonds_tn":1.28,"sovereign_tn":2.43,"m1_tn":0.75,"housing_tn":5.89,"d1_tn":3.89,"d2_tn":7.08,"d3_tn":12.96,"pct_d1":43.32,"pct_d2":23.84,"pct_d3":13.02},{"year":1988,"gold_stock_t":119100,"gold_price":437,"gold_mcap_tn":1.673,"gold_mcap_adj_tn":1.591,"global_total_tn":152.8,"pct_global":1.1,"pct_global_adj":1.04,"usd_factor":0.951,"pct_d1_adj":35.96,"pct_d2_adj":20.15,"pct_d3_adj":11.09,"equities_tn":2.95,"corp_bonds_tn":1.48,"sovereign_tn":2.68,"m1_tn":0.79,"housing_tn":6.45,"d1_tn":4.42,"d2_tn":7.89,"d3_tn":14.34,"pct_d1":37.83,"pct_d2":21.2,"pct_d3":11.67},{"year":1989,"gold_stock_t":120800,"gold_price":381,"gold_mcap_tn":1.48,"gold_mcap_adj_tn":1.479,"global_total_tn":161.4,"pct_global":0.92,"pct_global_adj":0.92,"usd_factor":0.999,"pct_d1_adj":28.2,"pct_d2_adj":16.45,"pct_d3_adj":9.25,"equities_tn":3.62,"corp_bonds_tn":1.63,"sovereign_tn":2.95,"m1_tn":0.79,"housing_tn":6.99,"d1_tn":5.24,"d2_tn":8.99,"d3_tn":15.99,"pct_d1":28.21,"pct_d2":16.46,"pct_d3":9.26},{"year":1990,"gold_stock_t":122500,"gold_price":384,"gold_mcap_tn":1.512,"gold_mcap_adj_tn":1.385,"global_total_tn":170.0,"pct_global":0.89,"pct_global_adj":0.81,"usd_factor":0.915,"pct_d1_adj":27.26,"pct_d2_adj":14.94,"pct_d3_adj":8.43,"equities_tn":3.33,"corp_bonds_tn":1.75,"sovereign_tn":3.36,"m1_tn":0.82,"housing_tn":7.15,"d1_tn":5.08,"d2_tn":9.27,"d3_tn":16.41,"pct_d1":29.78,"pct_d2":16.32,"pct_d3":9.21},{"year":1991,"gold_stock_t":124000,"gold_price":362,"gold_mcap_tn":1.443,"gold_mcap_adj_tn":1.327,"global_total_tn":181.0,"pct_global":0.8,"pct_global_adj":0.73,"usd_factor":0.92,"pct_d1_adj":20.51,"pct_d2_adj":11.88,"pct_d3_adj":7.17,"equities_tn":4.57,"corp_bonds_tn":1.9,"sovereign_tn":3.8,"m1_tn":0.9,"housing_tn":7.33,"d1_tn":6.47,"d2_tn":11.17,"d3_tn":18.5,"pct_d1":22.3,"pct_d2":12.92,"pct_d3":7.8},{"year":1992,"gold_stock_t":125500,"gold_price":344,"gold_mcap_tn":1.388,"gold_mcap_adj_tn":1.345,"global_total_tn":192.0,"pct_global":0.72,"pct_global_adj":0.7,"usd_factor":0.969,"pct_d1_adj":18.69,"pct_d2_adj":10.85,"pct_d3_adj":6.71,"equities_tn":5.11,"corp_bonds_tn":2.09,"sovereign_tn":4.18,"m1_tn":1.02,"housing_tn":7.65,"d1_tn":7.19,"d2_tn":12.4,"d3_tn":20.05,"pct_d1":19.29,"pct_d2":11.2,"pct_d3":6.92},{"year":1993,"gold_stock_t":127250,"gold_price":360,"gold_mcap_tn":1.473,"gold_mcap_adj_tn":1.45,"global_total_tn":203.0,"pct_global":0.73,"pct_global_adj":0.71,"usd_factor":0.984,"pct_d1_adj":17.56,"pct_d2_adj":10.41,"pct_d3_adj":6.61,"equities_tn":5.75,"corp_bonds_tn":2.5,"sovereign_tn":4.54,"m1_tn":1.13,"housing_tn":8.01,"d1_tn":8.26,"d2_tn":13.92,"d3_tn":21.93,"pct_d1":17.84,"pct_d2":10.58,"pct_d3":6.72},{"year":1994,"gold_stock_t":129000,"gold_price":384,"gold_mcap_tn":1.593,"gold_mcap_adj_tn":1.497,"global_total_tn":214.0,"pct_global":0.74,"pct_global_adj":0.7,"usd_factor":0.94,"pct_d1_adj":17.77,"pct_d2_adj":10.41,"pct_d3_adj":6.58,"equities_tn":5.69,"corp_bonds_tn":2.73,"sovereign_tn":4.8,"m1_tn":1.15,"housing_tn":8.36,"d1_tn":8.42,"d2_tn":14.37,"d3_tn":22.74,"pct_d1":18.91,"pct_d2":11.08,"pct_d3":7.0},{"year":1995,"gold_stock_t":130500,"gold_price":384,"gold_mcap_tn":1.611,"gold_mcap_adj_tn":1.477,"global_total_tn":225.0,"pct_global":0.72,"pct_global_adj":0.66,"usd_factor":0.917,"pct_d1_adj":13.7,"pct_d2_adj":8.74,"pct_d3_adj":5.82,"equities_tn":7.69,"corp_bonds_tn":3.09,"sovereign_tn":4.99,"m1_tn":1.13,"housing_tn":8.49,"d1_tn":10.78,"d2_tn":16.9,"d3_tn":25.39,"pct_d1":14.94,"pct_d2":9.54,"pct_d3":6.35},{"year":1996,"gold_stock_t":132500,"gold_price":388,"gold_mcap_tn":1.653,"gold_mcap_adj_tn":1.571,"global_total_tn":239.0,"pct_global":0.69,"pct_global_adj":0.66,"usd_factor":0.95,"pct_d1_adj":12.62,"pct_d2_adj":8.33,"pct_d3_adj":5.66,"equities_tn":9.05,"corp_bonds_tn":3.4,"sovereign_tn":5.32,"m1_tn":1.08,"housing_tn":8.89,"d1_tn":12.45,"d2_tn":18.86,"d3_tn":27.75,"pct_d1":13.27,"pct_d2":8.76,"pct_d3":5.96},{"year":1997,"gold_stock_t":134000,"gold_price":331,"gold_mcap_tn":1.426,"gold_mcap_adj_tn":1.487,"global_total_tn":253.0,"pct_global":0.56,"pct_global_adj":0.59,"usd_factor":1.043,"pct_d1_adj":9.6,"pct_d2_adj":6.74,"pct_d3_adj":4.74,"equities_tn":11.79,"corp_bonds_tn":3.71,"sovereign_tn":5.5,"m1_tn":1.07,"housing_tn":9.33,"d1_tn":15.49,"d2_tn":22.07,"d3_tn":31.4,"pct_d1":9.2,"pct_d2":6.46,"pct_d3":4.54},{"year":1998,"gold_stock_t":135500,"gold_price":294,"gold_mcap_tn":1.281,"gold_mcap_adj_tn":1.311,"global_total_tn":267.0,"pct_global":0.48,"pct_global_adj":0.49,"usd_factor":1.024,"pct_d1_adj":7.03,"pct_d2_adj":5.17,"pct_d3_adj":3.69,"equities_tn":14.44,"corp_bonds_tn":4.21,"sovereign_tn":5.61,"m1_tn":1.09,"housing_tn":10.19,"d1_tn":18.65,"d2_tn":25.36,"d3_tn":35.55,"pct_d1":6.87,"pct_d2":5.05,"pct_d3":3.6},{"year":1999,"gold_stock_t":137000,"gold_price":279,"gold_mcap_tn":1.229,"gold_mcap_adj_tn":1.27,"global_total_tn":281.0,"pct_global":0.44,"pct_global_adj":0.45,"usd_factor":1.034,"pct_d1_adj":5.64,"pct_d2_adj":4.32,"pct_d3_adj":3.13,"equities_tn":17.97,"corp_bonds_tn":4.53,"sovereign_tn":5.78,"m1_tn":1.12,"housing_tn":11.2,"d1_tn":22.5,"d2_tn":29.4,"d3_tn":40.6,"pct_d1":5.46,"pct_d2":4.18,"pct_d3":3.03},{"year":2000,"gold_stock_t":138500,"gold_price":279,"gold_mcap_tn":1.242,"gold_mcap_adj_tn":1.393,"global_total_tn":295.0,"pct_global":0.42,"pct_global_adj":0.47,"usd_factor":1.121,"pct_d1_adj":6.56,"pct_d2_adj":4.98,"pct_d3_adj":3.41,"equities_tn":16.39,"corp_bonds_tn":4.85,"sovereign_tn":5.66,"m1_tn":1.09,"housing_tn":12.83,"d1_tn":21.24,"d2_tn":28.0,"d3_tn":40.83,"pct_d1":5.85,"pct_d2":4.44,"pct_d3":3.04},{"year":2001,"gold_stock_t":140500,"gold_price":271,"gold_mcap_tn":1.224,"gold_mcap_adj_tn":1.437,"global_total_tn":316.0,"pct_global":0.39,"pct_global_adj":0.45,"usd_factor":1.174,"pct_d1_adj":7.1,"pct_d2_adj":5.25,"pct_d3_adj":3.42,"equities_tn":14.77,"corp_bonds_tn":5.47,"sovereign_tn":5.94,"m1_tn":1.18,"housing_tn":14.65,"d1_tn":20.24,"d2_tn":27.37,"d3_tn":42.02,"pct_d1":6.05,"pct_d2":4.47,"pct_d3":2.91},{"year":2002,"gold_stock_t":142500,"gold_price":310,"gold_mcap_tn":1.42,"gold_mcap_adj_tn":1.546,"global_total_tn":337.0,"pct_global":0.42,"pct_global_adj":0.46,"usd_factor":1.088,"pct_d1_adj":8.67,"pct_d2_adj":6.07,"pct_d3_adj":3.72,"equities_tn":11.82,"corp_bonds_tn":6.02,"sovereign_tn":6.41,"m1_tn":1.22,"housing_tn":16.12,"d1_tn":17.84,"d2_tn":25.46,"d3_tn":41.58,"pct_d1":7.96,"pct_d2":5.58,"pct_d3":3.42},{"year":2003,"gold_stock_t":145500,"gold_price":363,"gold_mcap_tn":1.698,"gold_mcap_adj_tn":1.577,"global_total_tn":358.0,"pct_global":0.47,"pct_global_adj":0.44,"usd_factor":0.929,"pct_d1_adj":7.14,"pct_d2_adj":5.19,"pct_d3_adj":3.28,"equities_tn":15.25,"corp_bonds_tn":6.84,"sovereign_tn":7.0,"m1_tn":1.31,"housing_tn":17.74,"d1_tn":22.09,"d2_tn":30.39,"d3_tn":48.14,"pct_d1":7.69,"pct_d2":5.59,"pct_d3":3.53},{"year":2004,"gold_stock_t":148500,"gold_price":410,"gold_mcap_tn":1.957,"gold_mcap_adj_tn":1.692,"global_total_tn":379.0,"pct_global":0.52,"pct_global_adj":0.45,"usd_factor":0.864,"pct_d1_adj":6.82,"pct_d2_adj":5.01,"pct_d3_adj":3.12,"equities_tn":17.24,"corp_bonds_tn":7.58,"sovereign_tn":7.6,"m1_tn":1.38,"housing_tn":20.47,"d1_tn":24.82,"d2_tn":33.79,"d3_tn":54.26,"pct_d1":7.89,"pct_d2":5.79,"pct_d3":3.61},{"year":2005,"gold_stock_t":151500,"gold_price":445,"gold_mcap_tn":2.168,"gold_mcap_adj_tn":2.0,"global_total_tn":400.0,"pct_global":0.54,"pct_global_adj":0.5,"usd_factor":0.923,"pct_d1_adj":7.56,"pct_d2_adj":5.55,"pct_d3_adj":3.37,"equities_tn":18.2,"corp_bonds_tn":8.28,"sovereign_tn":8.17,"m1_tn":1.37,"housing_tn":23.29,"d1_tn":26.48,"d2_tn":36.02,"d3_tn":59.31,"pct_d1":8.19,"pct_d2":6.02,"pct_d3":3.65},{"year":2006,"gold_stock_t":155000,"gold_price":604,"gold_mcap_tn":3.01,"gold_mcap_adj_tn":2.554,"global_total_tn":421.7,"pct_global":0.71,"pct_global_adj":0.61,"usd_factor":0.848,"pct_d1_adj":8.51,"pct_d2_adj":6.38,"pct_d3_adj":3.98,"equities_tn":20.65,"corp_bonds_tn":9.36,"sovereign_tn":8.68,"m1_tn":1.37,"housing_tn":24.11,"d1_tn":30.0,"d2_tn":40.05,"d3_tn":64.16,"pct_d1":10.03,"pct_d2":7.52,"pct_d3":4.69},{"year":2007,"gold_stock_t":158000,"gold_price":695,"gold_mcap_tn":3.53,"gold_mcap_adj_tn":2.79,"global_total_tn":443.3,"pct_global":0.8,"pct_global_adj":0.63,"usd_factor":0.79,"pct_d1_adj":8.78,"pct_d2_adj":6.58,"pct_d3_adj":4.25,"equities_tn":21.05,"corp_bonds_tn":10.72,"sovereign_tn":9.23,"m1_tn":1.37,"housing_tn":23.24,"d1_tn":31.77,"d2_tn":42.38,"d3_tn":65.62,"pct_d1":11.11,"pct_d2":8.33,"pct_d3":5.38},{"year":2008,"gold_stock_t":160500,"gold_price":872,"gold_mcap_tn":4.5,"gold_mcap_adj_tn":3.928,"global_total_tn":465.0,"pct_global":0.97,"pct_global_adj":0.84,"usd_factor":0.873,"pct_d1_adj":16.44,"pct_d2_adj":10.85,"pct_d3_adj":6.88,"equities_tn":13.73,"corp_bonds_tn":10.16,"sovereign_tn":10.7,"m1_tn":1.6,"housing_tn":20.9,"d1_tn":23.89,"d2_tn":36.19,"d3_tn":57.08,"pct_d1":18.84,"pct_d2":12.43,"pct_d3":7.88},{"year":2009,"gold_stock_t":163000,"gold_price":972,"gold_mcap_tn":5.094,"gold_mcap_adj_tn":4.124,"global_total_tn":492.5,"pct_global":1.03,"pct_global_adj":0.84,"usd_factor":0.81,"pct_d1_adj":15.2,"pct_d2_adj":10.02,"pct_d3_adj":6.81,"equities_tn":17.01,"corp_bonds_tn":10.12,"sovereign_tn":12.31,"m1_tn":1.69,"housing_tn":19.42,"d1_tn":27.14,"d2_tn":41.14,"d3_tn":60.56,"pct_d1":18.77,"pct_d2":12.38,"pct_d3":8.41},{"year":2010,"gold_stock_t":166000,"gold_price":1225,"gold_mcap_tn":6.538,"gold_mcap_adj_tn":5.233,"global_total_tn":520.0,"pct_global":1.26,"pct_global_adj":1.01,"usd_factor":0.8,"pct_d1_adj":17.54,"pct_d2_adj":11.45,"pct_d3_adj":8.11,"equities_tn":19.53,"corp_bonds_tn":10.31,"sovereign_tn":14.03,"m1_tn":1.84,"housing_tn":18.82,"d1_tn":29.84,"d2_tn":45.7,"d3_tn":64.53,"pct_d1":21.91,"pct_d2":14.3,"pct_d3":10.13},{"year":2011,"gold_stock_t":169000,"gold_price":1572,"gold_mcap_tn":8.541,"gold_mcap_adj_tn":6.912,"global_total_tn":547.5,"pct_global":1.56,"pct_global_adj":1.26,"usd_factor":0.809,"pct_d1_adj":23.44,"pct_d2_adj":14.74,"pct_d3_adj":10.63,"equities_tn":19.15,"corp_bonds_tn":10.33,"sovereign_tn":15.22,"m1_tn":2.17,"housing_tn":18.13,"d1_tn":29.48,"d2_tn":46.88,"d3_tn":65.0,"pct_d1":28.97,"pct_d2":18.22,"pct_d3":13.14},{"year":2012,"gold_stock_t":172000,"gold_price":1669,"gold_mcap_tn":9.229,"gold_mcap_adj_tn":7.364,"global_total_tn":575.0,"pct_global":1.61,"pct_global_adj":1.28,"usd_factor":0.798,"pct_d1_adj":22.66,"pct_d2_adj":14.33,"pct_d3_adj":10.53,"equities_tn":21.74,"corp_bonds_tn":10.75,"sovereign_tn":16.43,"m1_tn":2.47,"housing_tn":18.53,"d1_tn":32.5,"d2_tn":51.4,"d3_tn":69.93,"pct_d1":28.4,"pct_d2":17.96,"pct_d3":13.2},{"year":2013,"gold_stock_t":175000,"gold_price":1411,"gold_mcap_tn":7.939,"gold_mcap_adj_tn":6.514,"global_total_tn":582.3,"pct_global":1.36,"pct_global_adj":1.12,"usd_factor":0.821,"pct_d1_adj":16.64,"pct_d2_adj":11.04,"pct_d3_adj":8.22,"equities_tn":28.29,"corp_bonds_tn":10.86,"sovereign_tn":17.16,"m1_tn":2.69,"housing_tn":20.29,"d1_tn":39.15,"d2_tn":58.99,"d3_tn":79.28,"pct_d1":20.28,"pct_d2":13.46,"pct_d3":10.01},{"year":2014,"gold_stock_t":178000,"gold_price":1266,"gold_mcap_tn":7.245,"gold_mcap_adj_tn":6.435,"global_total_tn":589.7,"pct_global":1.23,"pct_global_adj":1.09,"usd_factor":0.888,"pct_d1_adj":14.96,"pct_d2_adj":10.03,"pct_d3_adj":7.5,"equities_tn":31.65,"corp_bonds_tn":11.37,"sovereign_tn":18.14,"m1_tn":2.97,"housing_tn":21.65,"d1_tn":43.03,"d2_tn":64.14,"d3_tn":85.79,"pct_d1":16.84,"pct_d2":11.3,"pct_d3":8.45},{"year":2015,"gold_stock_t":181000,"gold_price":1160,"gold_mcap_tn":6.75,"gold_mcap_adj_tn":6.648,"global_total_tn":597.0,"pct_global":1.13,"pct_global_adj":1.11,"usd_factor":0.985,"pct_d1_adj":15.84,"pct_d2_adj":10.39,"pct_d3_adj":7.62,"equities_tn":30.62,"corp_bonds_tn":11.35,"sovereign_tn":18.92,"m1_tn":3.13,"housing_tn":23.18,"d1_tn":41.97,"d2_tn":64.01,"d3_tn":87.19,"pct_d1":16.09,"pct_d2":10.55,"pct_d3":7.74},{"year":2016,"gold_stock_t":184500,"gold_price":1251,"gold_mcap_tn":7.421,"gold_mcap_adj_tn":7.632,"global_total_tn":642.3,"pct_global":1.16,"pct_global_adj":1.19,"usd_factor":1.028,"pct_d1_adj":17.06,"pct_d2_adj":11.21,"pct_d3_adj":8.21,"equities_tn":33.18,"corp_bonds_tn":11.55,"sovereign_tn":19.98,"m1_tn":3.37,"housing_tn":24.9,"d1_tn":44.74,"d2_tn":68.09,"d3_tn":92.99,"pct_d1":16.59,"pct_d2":10.9,"pct_d3":7.98},{"year":2017,"gold_stock_t":188000,"gold_price":1257,"gold_mcap_tn":7.598,"gold_mcap_adj_tn":7.359,"global_total_tn":687.7,"pct_global":1.1,"pct_global_adj":1.07,"usd_factor":0.969,"pct_d1_adj":14.34,"pct_d2_adj":9.76,"pct_d3_adj":7.2,"equities_tn":39.02,"corp_bonds_tn":12.29,"sovereign_tn":20.49,"m1_tn":3.64,"housing_tn":26.75,"d1_tn":51.31,"d2_tn":75.44,"d3_tn":102.18,"pct_d1":14.81,"pct_d2":10.07,"pct_d3":7.44},{"year":2018,"gold_stock_t":191500,"gold_price":1268,"gold_mcap_tn":7.807,"gold_mcap_adj_tn":7.917,"global_total_tn":716.3,"pct_global":1.09,"pct_global_adj":1.11,"usd_factor":1.014,"pct_d1_adj":16.27,"pct_d2_adj":10.64,"pct_d3_adj":7.75,"equities_tn":36.12,"corp_bonds_tn":12.53,"sovereign_tn":21.97,"m1_tn":3.78,"housing_tn":27.75,"d1_tn":48.65,"d2_tn":74.4,"d3_tn":102.15,"pct_d1":16.05,"pct_d2":10.49,"pct_d3":7.64},{"year":2019,"gold_stock_t":195000,"gold_price":1393,"gold_mcap_tn":8.733,"gold_mcap_adj_tn":8.834,"global_total_tn":754.2,"pct_global":1.16,"pct_global_adj":1.17,"usd_factor":1.011,"pct_d1_adj":15.12,"pct_d2_adj":10.32,"pct_d3_adj":7.73,"equities_tn":45.23,"corp_bonds_tn":13.18,"sovereign_tn":23.2,"m1_tn":4.02,"housing_tn":28.57,"d1_tn":58.41,"d2_tn":85.64,"d3_tn":114.21,"pct_d1":14.95,"pct_d2":10.2,"pct_d3":7.65},{"year":2020,"gold_stock_t":198500,"gold_price":1770,"gold_mcap_tn":11.296,"gold_mcap_adj_tn":11.04,"global_total_tn":792.0,"pct_global":1.43,"pct_global_adj":1.39,"usd_factor":0.977,"pct_d1_adj":15.92,"pct_d2_adj":9.61,"pct_d3_adj":7.5,"equities_tn":54.91,"corp_bonds_tn":14.43,"sovereign_tn":27.75,"m1_tn":17.81,"housing_tn":32.29,"d1_tn":69.34,"d2_tn":114.89,"d3_tn":147.18,"pct_d1":16.29,"pct_d2":9.83,"pct_d3":7.67},{"year":2021,"gold_stock_t":202000,"gold_price":1799,"gold_mcap_tn":11.684,"gold_mcap_adj_tn":11.807,"global_total_tn":821.0,"pct_global":1.42,"pct_global_adj":1.44,"usd_factor":1.011,"pct_d1_adj":13.95,"pct_d2_adj":8.77,"pct_d3_adj":6.79,"equities_tn":69.21,"corp_bonds_tn":15.43,"sovereign_tn":29.62,"m1_tn":20.43,"housing_tn":39.19,"d1_tn":84.64,"d2_tn":134.68,"d3_tn":173.87,"pct_d1":13.8,"pct_d2":8.67,"pct_d3":6.72},{"year":2022,"gold_stock_t":205500,"gold_price":1800,"gold_mcap_tn":11.893,"gold_mcap_adj_tn":12.669,"global_total_tn":850.0,"pct_global":1.4,"pct_global_adj":1.49,"usd_factor":1.065,"pct_d1_adj":18.03,"pct_d2_adj":10.43,"pct_d3_adj":7.75,"equities_tn":55.19,"corp_bonds_tn":15.09,"sovereign_tn":31.42,"m1_tn":19.74,"housing_tn":41.96,"d1_tn":70.28,"d2_tn":121.44,"d3_tn":163.4,"pct_d1":16.92,"pct_d2":9.79,"pct_d3":7.28},{"year":2023,"gold_stock_t":209000,"gold_price":1940,"gold_mcap_tn":13.036,"gold_mcap_adj_tn":13.621,"global_total_tn":874.0,"pct_global":1.49,"pct_global_adj":1.56,"usd_factor":1.045,"pct_d1_adj":16.51,"pct_d2_adj":10.13,"pct_d3_adj":7.6,"equities_tn":66.96,"corp_bonds_tn":15.52,"sovereign_tn":34.0,"m1_tn":17.98,"housing_tn":44.8,"d1_tn":82.48,"d2_tn":134.47,"d3_tn":179.26,"pct_d1":15.8,"pct_d2":9.69,"pct_d3":7.27},{"year":2024,"gold_stock_t":216265,"gold_price":2388,"gold_mcap_tn":16.604,"gold_mcap_adj_tn":18.441,"global_total_tn":903.0,"pct_global":1.84,"pct_global_adj":2.04,"usd_factor":1.111,"pct_d1_adj":18.84,"pct_d2_adj":12.09,"pct_d3_adj":9.25,"equities_tn":81.83,"corp_bonds_tn":16.05,"sovereign_tn":36.22,"m1_tn":18.39,"housing_tn":46.93,"d1_tn":97.88,"d2_tn":152.49,"d3_tn":199.42,"pct_d1":16.96,"pct_d2":10.89,"pct_d3":8.33},{"year":2025,"gold_stock_t":220000,"gold_price":3215,"gold_mcap_tn":22.74,"gold_mcap_adj_tn":23.829,"global_total_tn":935.0,"pct_global":2.43,"pct_global_adj":2.55,"usd_factor":1.048,"pct_d1_adj":21.07,"pct_d2_adj":13.96,"pct_d3_adj":10.9,"equities_tn":96.32,"corp_bonds_tn":16.78,"sovereign_tn":38.51,"m1_tn":19.09,"housing_tn":47.92,"d1_tn":113.1,"d2_tn":170.71,"d3_tn":218.62,"pct_d1":20.11,"pct_d2":13.32,"pct_d3":10.4}]};
+const C = {ink:"#1A1A1A",mute:"#666",gold:"#A85F1E",teal:"#1F4E5F",slate:"#7A8B99",rule:"#E5E5E5",bg:"#FFFFFF"};
+Chart.defaults.font.family='"Inter",Helvetica,Arial,sans-serif';
+if(window.ChartZoom) Chart.register(window.ChartZoom);  // scroll=zoom (per-axis when over a scale), drag=pan, dbl-click=reset
+Chart.defaults.font.size=11.5; Chart.defaults.color=C.mute; Chart.defaults.borderColor=C.rule;
+const S = DATA.series;
+const LABELS = S.map(r=>r.year);
+
+const U = DATA.usd_adjustment;
+let usdAdj = false;          // false = nominal USD, true = dollar-neutral gold
+function styled(label,color,data){
+  return {label,data,borderColor:color,backgroundColor:"transparent",
+    borderWidth:2,tension:0,pointRadius:2.5,pointBackgroundColor:C.bg,pointBorderColor:color,
+    pointBorderWidth:1.4,pointHoverRadius:5,spanGaps:true};
+}
+function ds(label,color,baseKey){
+  const key = usdAdj ? baseKey+"_adj" : baseKey;
+  return styled(label,color,S.map(r=>r[key]));
+}
+const VIEWS = {
+  d1:{title:"Gold as % of US equities + corporate bonds · 1975-2025",
+      note:"Denominator = US corporate equities at market value (Fed Z.1) + all-sectors corporate &amp; foreign bonds. The narrowest, most volatile base: gold's share swings with both the gold price and the equity cycle &mdash; a ~44% peak in 1975, ~6% at the 2000 equity-bubble top, back to ~20% now.",
+      sets:()=>[ds("Gold % of equities + corp bonds",C.gold,"pct_d1")]},
+  d2:{title:"Gold as % of all US financial assets · 1975-2025",
+      note:"Adds federal public debt (sovereign) and M1 to the base. Slower-moving than equities alone. The 2020 step down reflects the May-2020 M1 redefinition (savings deposits folded into M1), which enlarged the base by ~$13T.",
+      sets:()=>[ds("Gold % of all financial assets",C.teal,"pct_d2")]},
+  d3:{title:"Gold as % of total US assets incl. housing · 1975-2025",
+      note:"Adds households' owner-occupied real estate &mdash; the widest base. Gold's share is structurally lowest here and the most stable, ranging ~3% (2000) to ~16% (1975), ~10% today.",
+      sets:()=>[ds("Gold % of total incl housing",C.slate,"pct_d3")]},
+  all:{title:"Gold's share across all three US bases · 1975-2025",
+      note:"Same gold numerator, three denominators. The lines fan out as the base widens: equities + bonds (top), + sovereign + M1 (middle), + housing (bottom). All three rise together in gold bull markets (late-70s, 2008-12, 2020-25) and compress in equity bulls (late-90s).",
+      sets:()=>[ds("vs Equities + corp bonds",C.gold,"pct_d1"),
+            ds("vs All financial assets",C.teal,"pct_d2"),
+            ds("vs Total incl housing",C.slate,"pct_d3")]},
+  levels:{kind:"levels",title:"Gold market cap vs total GLOBAL assets incl. housing &mdash; $ levels · 1975-2025",
+      note:"Absolute dollars, separate y-axes (gold left, global total right). Gold = world above-ground stock &times; price. Total global assets = global financial assets (FSB-style, banks+insurers+pensions+OFIs) + global real estate (Savills-anchored) &mdash; ~$65T in 1975 to ~$935T now. Pre-1990 is estimated. Gold has been ~0.5&ndash;2.5% of all global assets.",
+      sets:()=>[Object.assign(styled("Gold market cap (left)",C.gold,S.map(r=>usdAdj?r.gold_mcap_adj_tn:r.gold_mcap_tn)),{yAxisID:"yG"}),
+            Object.assign(styled("Total global assets, incl housing (right)",C.slate,S.map(r=>r.global_total_tn)),{yAxisID:"yT"})]},
+};
+const USD_NOTE = ` <b>Dollar-neutral:</b> gold restated as if the trade-weighted dollar sat at its 50-yr average, via gold&times;(TWUSD<sub>t</sub>/TWUSD<sub>avg</sub>)<sup>${(-U.beta).toFixed(2)}</sup> &mdash; elasticity &beta;=${U.beta} from OLS of monthly &Delta;log(gold) on &Delta;log(trade-weighted USD), R&sup2;=${U.r2.toFixed(2)}, n=${U.n_months} mo. Strong-dollar periods (1985 Plaza peak, and today) mark gold up; weak-dollar periods (2011) mark it down.`;
+
+let chart;
+function render(view){
+  const v = VIEWS[view];
+  const isLv = v.kind==="levels";
+  document.getElementById("ctitle").innerHTML = v.title + (usdAdj ? " · dollar-neutral" : "");
+  document.getElementById("cnote").innerHTML = v.note + (usdAdj ? USD_NOTE : "");
+  const fmt = isLv ? (y=>"$"+y.toFixed(1)+"T") : (y=>y.toFixed(1)+"%");
+  const scales = isLv
+    ? {x:{grid:{color:C.rule,drawTicks:false},border:{color:C.ink},
+          ticks:{color:C.mute,maxRotation:0,autoSkip:true,maxTicksLimit:14}},
+       yG:{position:"left",beginAtZero:true,grid:{color:C.rule,drawTicks:false},
+           border:{color:C.gold},title:{display:true,text:"Gold market cap ($T)",color:C.gold},
+           ticks:{color:C.gold,callback:v=>"$"+v+"T"}},
+       yT:{position:"right",beginAtZero:true,grid:{drawOnChartArea:false},
+           border:{color:C.slate},title:{display:true,text:"Total global assets ($T)",color:C.slate},
+           ticks:{color:C.slate,callback:v=>"$"+v+"T"}}}
+    : {x:{grid:{color:C.rule,drawTicks:false},border:{color:C.ink},
+          ticks:{color:C.mute,maxRotation:0,autoSkip:true,maxTicksLimit:14}},
+       y:{grid:{color:C.rule,drawTicks:false},border:{color:C.ink},beginAtZero:true,
+          ticks:{color:C.mute,callback:v=>v+"%"}}};
+  if(chart) chart.destroy();
+  chart = new Chart(document.getElementById("chart"),{
+    type:"line", data:{labels:LABELS,datasets:v.sets()},
+    options:{responsive:true,maintainAspectRatio:false,animation:false,
+      interaction:{mode:"index",intersect:false},
+      plugins:{legend:{position:"top",align:"end",
+          labels:{color:C.ink,boxWidth:14,boxHeight:2,padding:14,font:{size:12}}},
+        tooltip:{backgroundColor:C.ink,titleColor:C.bg,bodyColor:C.bg,padding:10,
+          callbacks:{label:ctx=>ctx.parsed.y==null?ctx.dataset.label+": n/a":ctx.dataset.label+": "+fmt(ctx.parsed.y)}},
+        zoom:{
+          pan:{enabled:true,mode:"xy"},                                  // drag to move around both axes
+          zoom:{wheel:{enabled:true},pinch:{enabled:true},mode:"xy",     // scroll to zoom both axes
+            overScaleMode:"xy"}}},                                       // ...scroll over one axis = zoom that axis only
+      scales}
+  });
+  curView = view;
+  renderStats(view); renderTable();
+  document.querySelectorAll(".tbtn").forEach(b=>b.classList.toggle("active",b.dataset.view===view));
+  document.querySelectorAll(".ubtn").forEach(b=>b.classList.toggle("active",(b.dataset.usd==="adj")===usdAdj));
+  if(typeof history!=="undefined"&&history.replaceState) history.replaceState(null,"","#"+view+(usdAdj?"+adj":""));
+}
+function renderStats(view){
+  const last=S[S.length-1], first=S[0];
+  const mcapL = usdAdj ? last.gold_mcap_adj_tn : last.gold_mcap_tn;
+  if(view==="levels"){
+    const cells=[
+      ["Gold market cap · "+last.year, "$"+mcapL.toFixed(1)+"T", last.gold_stock_t.toLocaleString()+" t × $"+last.gold_price.toLocaleString()+"/oz"],
+      ["Total global assets incl housing · "+last.year, "$"+last.global_total_tn.toFixed(0)+"T", "global financial assets + global real estate"],
+      ["Gold ÷ global total · "+last.year, (usdAdj?last.pct_global_adj:last.pct_global).toFixed(1)+"%", "$"+first.global_total_tn.toFixed(0)+"T → $"+last.global_total_tn.toFixed(0)+"T since "+first.year],
+    ];
+    document.getElementById("stats").innerHTML = cells.map(c=>
+      `<div class="stat-cell"><div class="lbl">${c[0]}</div><div class="val">${c[1]}</div><div class="sub">${c[2]}</div></div>`).join("");
+    return;
+  }
+  const sfx = usdAdj ? "_adj" : "";
+  const key = (view==="all" ? "pct_d3" : "pct_"+view) + sfx;
+  const lbl = {d1:"equities + corp bonds",d2:"all financial assets",d3:"total incl housing",all:"total incl housing"}[view];
+  const mcap = usdAdj ? last.gold_mcap_adj_tn : last.gold_mcap_tn;
+  const cells=[
+    ["Gold market cap · "+last.year, "$"+mcap.toFixed(1)+"T", last.gold_stock_t.toLocaleString()+" t × $"+last.gold_price.toLocaleString()+"/oz"],
+    ["Gold % of "+lbl+" · "+last.year, last[key].toFixed(1)+"%", "base ≈ $"+(last[view==="all"?"d3_tn":view+"_tn"]).toFixed(0)+"T"],
+    ["Range "+first.year+"–"+last.year, Math.min(...S.map(r=>r[key])).toFixed(1)+"% – "+Math.max(...S.map(r=>r[key])).toFixed(1)+"%", "min to max share"],
+  ];
+  document.getElementById("stats").innerHTML = cells.map(c=>
+    `<div class="stat-cell"><div class="lbl">${c[0]}</div><div class="val">${c[1]}</div><div class="sub">${c[2]}</div></div>`).join("");
+}
+function renderTable(){
+  const head=document.querySelector("#tbl thead"), body=document.querySelector("#tbl tbody");
+  head.innerHTML=`<tr><th>Year</th><th>Gold $T</th><th>Equities+Bonds $T</th><th>+Sov+M1 $T</th><th>+Housing $T</th><th>% D1</th><th>% D2</th><th>% D3</th></tr>`;
+  body.innerHTML=S.map(r=>`<tr><td>${r.year}</td><td>${r.gold_mcap_tn.toFixed(2)}</td><td>${r.d1_tn.toFixed(1)}</td>`+
+    `<td>${r.d2_tn!=null?r.d2_tn.toFixed(1):"—"}</td><td>${r.d3_tn!=null?r.d3_tn.toFixed(1):"—"}</td>`+
+    `<td>${r.pct_d1.toFixed(1)}</td><td>${r.pct_d2!=null?r.pct_d2.toFixed(1):"—"}</td><td>${r.pct_d3!=null?r.pct_d3.toFixed(1):"—"}</td></tr>`).join("");
+}
+let curView="d1";
+document.getElementById("chart").addEventListener("dblclick",()=>{if(chart&&chart.resetZoom)chart.resetZoom();});  // dbl-click to reset zoom/pan
+document.querySelectorAll(".tbtn").forEach(b=>b.addEventListener("click",()=>render(b.dataset.view)));
+document.querySelectorAll(".ubtn").forEach(b=>b.addEventListener("click",()=>{usdAdj=(b.dataset.usd==="adj");render(curView);}));
+const h=((typeof location!=="undefined"&&location.hash)||"#d1").slice(1);
+usdAdj=h.includes("+adj");
+const iv=h.replace("+adj","");
+render(VIEWS[iv]?iv:"d1");
+</script>
+</body>
+</html>
