@@ -1,7 +1,28 @@
 {
   "cutoff": "2026-09-30",
   "candidate_count": 16,
-  "derived_files": {},
+  "derived_files": {
+    "data.json.gz": {
+      "bytes": 18134827,
+      "sha256": "728534f95335c73115e97949f0b33506c8838041a4330fec4ef30c5c917aecc8"
+    },
+    "wpm_duration.json": {
+      "bytes": 2241545,
+      "sha256": "6974b6947d01befb4f47f884d9e7572fa62d029c9cc476a5b6ea8cd794721d75"
+    },
+    "fundamentals.json": {
+      "bytes": 114413,
+      "sha256": "a00eec4055c782dd1b9a9884e42e141f640409fc4d2466cd944aef3fc36bdc17"
+    },
+    "dashboard-data.json.gz": {
+      "bytes": 9698082,
+      "sha256": "4563adb4b4323114183b285ea16dcadf6d6d920d89e670d2bcfd7219cde7b1ad"
+    },
+    "wpm_raw_diagnostic.json": {
+      "bytes": 927141,
+      "sha256": "ae104f9b4219f46cc5f605366df8e62df0a6aa0f9dee5a79ba686a4f450094b3"
+    }
+  },
   "raw_sources": "Excluded from public repository",
   "diagnostic": "Future-volatility matching is look-ahead, descriptive only"
 }
