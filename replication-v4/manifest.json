@@ -1,14 +1,25 @@
 {
   "summary.json": "83ca9a9fc99853db57d2c437a673b40d3863adbd7223718badbfd5154146ed8e",
-  "index.html": "fca66449ba90f8a1ee44cdf7917068bae3bb7bb42c5562265cd4979dfcbf7131",
+  "index.html": "265fa2ffeedb996cec794b3abb4e79d746922f2899d3cb00904178931229ae7d",
+  "BASKETS.md": "11ee04abf75f0ea8d808e3c42adf05bd748048c687386939eec502635f3eabb3",
+  "lifecycle-summary.json": "744af4b75c131b283854315f4d2a306562db4484b42ba1cd36d6372825298288",
+  "baskets.js": "aa05746825a6ee4b4fc5d9390a6a57ba3a712c7c448d43ab75dfa0d3e7c1d6c3",
   "METHODS.md": "9b3a99327f1f4e7bb84f9dc31b171ead47231dc5061573dbea147795e51f54da",
   "style.css": "fa46cc3f486286470ce1aefc0cc8cce7ccdc64f8a64a0b312afa0f944fbf97c2",
-  "app.js": "603bc9fa3e59d18814e476cbd21f1b783d358a6140212b778dbfe466ad0dfa08",
+  "app.js": "18001d951f53e44f7b7879fd67318273becc0a7c3ea95a2454d0fa5ea4cc800d",
   "daily-data.json.gz": "8b90982385e081f4885cbf2b1c938790866b89c63e10b8e66d0bf5759b75f206",
   "source/build.py": "1a8c6207197dd0f750c8a8c0b5316206694752ac020b586c78e4e6cb780ffa61",
   "source/DATA_SOURCES.md": "9332f15fd3f7ac542c9489d72f08ee9cd489ca535ac85f494e0f81a3107536b3",
   "source/README.md": "1c2942c2b54d5ab529a9be497ee4b1cb157ea707a7c3fae3d13148eae0415943",
   "source/model_v3.py": "64d08084f8cc04eaafe5dbd5fcce3f6bedc9232d49848194b4bb3226a1283e55",
   "source/test_explorer.py": "d356aae5a92f7d15a09ea64d28443efdf533f2f777a75784f664fcb13bea8b00",
-  "source/fetch_snapshot.py": "d64698b64a682af10b21a1afac79c601fa44cddaf24eac81947c0db2e5b86d62"
+  "source/fetch_snapshot.py": "d64698b64a682af10b21a1afac79c601fa44cddaf24eac81947c0db2e5b86d62",
+  "source/baskets/DATA_SOURCES.md": "29c39da16e83c05857b24494f4b858552c0c88c7b63bb0f6c1265d840a5ad882",
+  "source/baskets/lifecycle.json": "9a4d9a39535adc652f55c71e073f7fc05da13e6c911e901a241640ae133565b0",
+  "source/baskets/README.md": "29e442209ce4b2fd048c4fcd67fa7264a8f543e756d1afda5af04b5ad3443f2f",
+  "source/baskets/validation.json": "e829ada4a7219588d70fdcff36a23d90af3abe27ee74e4192baa61ede8491f1f",
+  "source/baskets/build_lifecycle.py": "ed88f34b217b948361ac19461ea945f1f32d223592d2322d242d8ad7b96d8dcf",
+  "source/baskets/DESIGN.md": "987725ebf52887b06070eae9e52bdb93a2448a2a93e82b73089c3122a20dfc93",
+  "source/baskets/validate_lifecycle.py": "a8524b0e83edbfc5ca427c5ab49e97e1d559e97eb72a06bdcb3a8850c047622d",
+  "source/baskets/test_baskets.py": "e3c7f1578d1e6884d8daff6fde5582719f8ddd938d61c48ae73582063b6e98ce"
 }

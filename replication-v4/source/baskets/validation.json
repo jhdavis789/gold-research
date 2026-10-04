@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "cohorts_independently_rebuilt": 56,
+  "original_paths_byte_identical": true,
+  "percentiles_tail_groups_verified": true,
+  "raw_vendor_panel_excluded": true,
+  "lifecycle_data_sha256": "744af4b75c131b283854315f4d2a306562db4484b42ba1cd36d6372825298288"
+}
