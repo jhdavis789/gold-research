@@ -1,0 +1,13 @@
+# Supplemental silver-option candidates
+
+User expanded the task to silver options after the initial 11-family results had been computed. Preserve that core trial ledger and data snapshot. Supplemental candidate definitions are frozen before their evaluation and carry this sequential-research provenance; this is not an independent historical validation of the added hypotheses.
+
+Add gold+silver funds with long gold AND silver ATM calls/puts, monthly and quarterly, at silver hypothetical volatility = 1.25 times the trailing 12-month silver realized volatility. Add two fixed 1.0-times silver-volatility sensitivity families. Gold uses observed GVZ. Both silver multipliers use only observations known at the option pricing date; neither is an observed silver implied-volatility surface or actual option execution price. Missing prior volatility is never filled from the future. Observed quote access remains a separate root-owned investigation.
+
+Also add one quarterly gold+silver model with both ATM and 10% OTM calls/puts on each metal. Calls use strikes spot or 1.1×spot; puts spot or 0.9×spot. This fixed strike grid addresses convexity shape; the eight option coefficients have a stronger fixed penalty 0.001. It is a larger-parameter hypothesis with substantial overfit risk, not a selected winner.
+
+Use the exact funded cash, quantity and transaction-budget mechanics of the core engine. Silver premiums and payoffs are in silver share dollars; gold premiums/payoffs are in gold share dollars. The extended unpenalized objective embeds an optimized unpenalized gold+silver baseline with all option quantities zero. Retain that baseline whenever the numerical solver fails to improve. The deployed objective adds fixed squared option-exposure penalty only (0.0002 ATM families, 0.001 grid), so the zero-option baseline also has zero penalty. No fitted alpha or equity peers enter the portfolio.
+
+All supplemental outcomes, fits and cost sensitivities are retained and appended to derived dashboard data. Original core rows and candidate definitions remain intact. Comparisons for supplemental families use the same paired common start as the corresponding core stock. A portfolio bought between scheduled quarterly trades sells its options at the next scheduled rebalance and pays any remaining-life spread, rather than pretending the option expired early.
+
+Calendar correction: corrected supplemental families share the stock's core common entry and calendar March/June/September/December rebalances. Gold and silver initial options expire at the next calendar quarter; training uses those same expiry dates and shorter initial lives. Prior relative-phase outputs remain preserved as confounded evidence.

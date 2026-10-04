@@ -1,0 +1,17 @@
+# Valuation and margin evidence
+
+High reported margins are widespread in the latest annual filings. That does not make current multiples uniformly extreme. At September 2026 prices, Newmont is about 18 times reported 2025 basic earnings; Wheaton and Franco-Nevada are around 41 times. Different business models and accounting make a pooled absolute multiple a poor timing signal.
+
+The historical test ranks each issuer against its own earlier annual readings. Entry occurs at the next month-end after the filing plus one day. A high reading is in the top third of prior readings; a low reading is in the bottom third. Each rank needs at least three earlier annual observations. Loss years have no P/E. Annual price-to-operating-cash-flow uses weighted average shares as a market-cap proxy.
+
+The price study covers 15–17 years for most names. The generic SEC financial tags cover fewer years. Annual comparative figures are first available when their earliest recorded filing appears; they are not assigned an earlier assumed publication date. One issuer/filing contributes one observation, using its latest annual fiscal period. Source records identify the accession, filing date, period, currency and tag. The SEC snapshot is not a complete historical vintage archive.
+
+Future outcomes are one-, three- and five-year stock CAGR minus past-only volatility-targeted gold CAGR. Model trades are quarterly, borrowing and fees are included, and realized volatility can differ from the target. High/low contrasts first take a median within each issuer and bucket, then compare issuers that have observations in both buckets. Issuer bootstrap ranges do not solve overlapping-period or time-dependence problems. Thin five-year cohorts prevent a reliable long-term timing conclusion.
+
+Net margins use reported shareholder profit divided by revenue, in the same filing and currency. They can be distorted by tax items, impairments and disposals. They are not gold price minus AISC. Valuation uses USD annual EPS or USD operating cash flow; unsupported currencies and missing total revenue tags remain unavailable. B2Gold's total revenue is absent from the standard companyfacts tags used here. Gold Fields' latest usable annual revenue observation is 2024; its price ratio is visibly stale.
+
+Current readings combine September 30, 2026 prices with the latest available annual statement. They do not claim current TTM, adjusted or forward earnings. Historical Yahoo close prices are adjusted for subsequent splits; the analysis reverses those split factors when comparing them with original filed EPS.
+
+High margins can fund exploration and construction, and new supply can erode future scarcity. The latest industry evidence shows gradual growth, not an immediate supply surge. World Gold Council / Metals Focus estimates put first-half 2026 mine production 3% above the previous year; industry AISC was up 16% year over year in Q1. These observations do not identify a causal margin-to-supply relationship. An annual mine-level capacity, capex and commissioning panel would be needed to test that mechanism directly.
+
+Sources: [SEC developer resources](https://www.sec.gov/about/developer-resources), issuer annual filings identified in the data, [World Gold Council Q2 2026 supply review](https://www.gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-q2-2026/supply). Limited WGC / Metals Focus statistics are used for research commentary; raw source datasets are not redistributed.

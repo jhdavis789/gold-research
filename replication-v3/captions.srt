@@ -1,0 +1,135 @@
+1
+00:00:00,250 --> 00:00:05,772
+The question is how much of a miner or streamer we can recreate with
+
+2
+00:00:05,772 --> 00:00:07,744
+gold, silver and paid options.
+
+3
+00:00:07,744 --> 00:00:13,267
+Then, with gold exposure targeted to each stock’s past volatility, which investment compounds better
+
+4
+00:00:13,267 --> 00:00:14,450
+across holding periods?
+
+5
+00:00:15,250 --> 00:00:18,011
+The study expands to fourteen surviving stocks.
+
+6
+00:00:18,011 --> 00:00:21,167
+Most return tests reach fifteen to seventeen years.
+
+7
+00:00:21,167 --> 00:00:25,900
+Annual filings support a separate valuation study, but their history is shorter.
+
+8
+00:00:25,900 --> 00:00:29,450
+These are financed bullion proxies, not verified futures returns.
+
+9
+00:00:30,250 --> 00:00:33,320
+Each expanded model can choose zero extra positions.
+
+10
+00:00:33,320 --> 00:00:37,926
+Its retained, unpenalized training fit cannot be worse than the simpler portfolio.
+
+11
+00:00:37,926 --> 00:00:42,915
+Later performance can still worsen through estimation error, premium costs and changing exposures.
+
+12
+00:00:42,915 --> 00:00:44,450
+Those are separate tests.
+
+13
+00:00:45,250 --> 00:00:49,713
+Exposure estimates use only earlier data, with a full month gap.
+
+14
+00:00:49,713 --> 00:00:51,741
+Quarterly models share trade dates.
+
+15
+00:00:51,741 --> 00:00:53,770
+Between trades, quantities stay fixed.
+
+16
+00:00:53,770 --> 00:00:57,421
+Cash earns interest; borrowing and option premiums cost money.
+
+17
+00:00:57,421 --> 00:00:59,450
+Historical option prices remain hypothetical.
+
+18
+00:01:00,250 --> 00:01:05,772
+For Wheaton, gold and silver with illustrative gold options have a tracking R-squared of
+
+19
+00:01:05,772 --> 00:01:07,744
+about 0.58 on later data.
+
+20
+00:01:07,744 --> 00:01:12,083
+These tested options do not consistently improve tracking across the stocks.
+
+21
+00:01:12,083 --> 00:01:14,450
+The remaining return differences are substantial.
+
+22
+00:01:15,250 --> 00:01:20,524
+11 of fourteen stocks lag past-only volatility-targeted gold in their median five-year window.
+
+23
+00:01:20,524 --> 00:01:22,553
+Franco-Nevada and Wheaton do better.
+
+24
+00:01:22,553 --> 00:01:28,233
+That supports caution about miners, but overlapping periods and surviving stocks limit how far
+
+25
+00:01:28,233 --> 00:01:29,450
+we can generalize.
+
+26
+00:01:30,250 --> 00:01:32,279
+Reported margins are unusually high.
+
+27
+00:01:32,279 --> 00:01:37,959
+At September prices, Newmont is about eighteen times annual reported earnings; Wheaton is about
+
+28
+00:01:37,959 --> 00:01:38,364
+forty-one.
+
+29
+00:01:38,364 --> 00:01:44,044
+Historical high multiples do not give a stable long-term timing rule in this small
+
+30
+00:01:44,044 --> 00:01:44,450
+sample.
+
+31
+00:01:45,250 --> 00:01:49,873
+World Gold Council estimates show first-half mine output up three percent in twenty twenty-six.
+
+32
+00:01:49,873 --> 00:01:53,836
+Industry costs rose sixteen percent year over year in the first quarter.
+
+33
+00:01:53,836 --> 00:01:55,817
+These figures show gradual mine-output growth.
+
+34
+00:01:55,817 --> 00:01:59,450
+They do not establish that high margins cause future stock underperformance.

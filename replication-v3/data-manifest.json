@@ -1,0 +1,7 @@
+{
+  "cutoff": "2026-09-30",
+  "candidate_count": 16,
+  "derived_files": {},
+  "raw_sources": "Excluded from public repository",
+  "diagnostic": "Future-volatility matching is look-ahead, descriptive only"
+}

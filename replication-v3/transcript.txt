@@ -1,0 +1,15 @@
+The question is how much of a miner or streamer we can recreate with gold, silver and paid options. Then, with gold exposure targeted to each stock’s past volatility, which investment compounds better across holding periods?
+
+The study expands to fourteen surviving stocks. Most return tests reach fifteen to seventeen years. Annual filings support a separate valuation study, but their history is shorter. These are financed bullion proxies, not verified futures returns.
+
+Each expanded model can choose zero extra positions. Its retained, unpenalized training fit cannot be worse than the simpler portfolio. Later performance can still worsen through estimation error, premium costs and changing exposures. Those are separate tests.
+
+Exposure estimates use only earlier data, with a full month gap. Quarterly models share trade dates. Between trades, quantities stay fixed. Cash earns interest; borrowing and option premiums cost money. Historical option prices remain hypothetical.
+
+For Wheaton, gold and silver with illustrative gold options have a tracking R-squared of about 0.58 on later data. These tested options do not consistently improve tracking across the stocks. The remaining return differences are substantial.
+
+11 of fourteen stocks lag past-only volatility-targeted gold in their median five-year window. Franco-Nevada and Wheaton do better. That supports caution about miners, but overlapping periods and surviving stocks limit how far we can generalize.
+
+Reported margins are unusually high. At September prices, Newmont is about eighteen times annual reported earnings; Wheaton is about forty-one. Historical high multiples do not give a stable long-term timing rule in this small sample.
+
+World Gold Council estimates show first-half mine output up three percent in twenty twenty-six. Industry costs rose sixteen percent year over year in the first quarter. These figures show gradual mine-output growth. They do not establish that high margins cause future stock underperformance.
