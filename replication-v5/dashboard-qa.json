@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "companies": 20,
+  "models": 29,
+  "period_frequency_checks": 36,
+  "cost_control": true,
+  "mobile_overflow": false,
+  "page_errors": []
+}

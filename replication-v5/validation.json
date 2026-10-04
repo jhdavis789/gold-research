@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "path_counts": {
+    "NEM": 29,
+    "AEM": 29,
+    "B": 29,
+    "AU": 29,
+    "FNV": 29,
+    "WPM": 29,
+    "RGLD": 29,
+    "GFI": 29,
+    "KGC": 29,
+    "HMY": 29,
+    "EGO": 29,
+    "IAG": 29,
+    "BTG": 29,
+    "OR": 29,
+    "DRD": 29,
+    "SSRM": 29,
+    "CDE": 29,
+    "EQX": 29,
+    "SA": 29,
+    "NG": 29
+  },
+  "future_perturbation_candidates": 18,
+  "independent_accounting": true,
+  "zero_option_embedding": true,
+  "monthly_compounding": true,
+  "higher_cost_paths_checked": true,
+  "monthly_or_quarterly_trades_only": true
+}

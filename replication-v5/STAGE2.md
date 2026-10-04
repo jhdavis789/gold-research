@@ -1,0 +1,5 @@
+# Second-stage convexity check
+
+The first eighteen candidates show improvement from daily metals fitting and a further market component; paid calls add little. Before additional computation, freeze five extra trials: the four call structures and market-plus-12m-calls with zero shrink penalty, retaining identical bounds, execution and costs. This explicitly tests whether regularization hid a convexity benefit. Total fixed candidates become23 plus the previously declared adaptive rule 24. Preserve first-stage sources and outputs. These additional results are post-first-stage exploratory findings.
+
+Also run two explanatory diagnostics with past-only quarterly-frozen coefficients: daily gold/silver/SPY linear factors with a statistical intercept, and the same with gold², silver² and gold×silver. These are contemporaneous factor explanations, not forecasts or self-financing portfolios. Report them separately; quadratic payoffs and intercepts are never credited as portfolio earnings. The diagnostics test whether a missing nonlinear return relationship is large enough to warrant more option engineering. They do not set a bound on all possible company models.

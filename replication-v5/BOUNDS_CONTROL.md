@@ -1,0 +1,3 @@
+# Matched-bound controls
+
+After the first and second stage results, add two explicitly exploratory controls before computation: daily EW gold/silver quarterly with the original silver cap1 (instead of 1.5), and 504-session daily gold/silver with cap1 and the original full-month information gap. This checks whether a relaxed silver bound or fresher information explains the headline improvement. The models still differ from v4 in fitting objective and fixed shrinkage, so this is not a single-variable experimental decomposition. Total:26 new portfolio rules, three previous baselines, two non-invested explanatory diagnostics. Do not omit losing controls.
