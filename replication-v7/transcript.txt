@@ -1,0 +1,17 @@
+What can recreate a gold company?
+Twenty companies are compared with funded portfolios of metals and other permitted assets. Exposures are estimated from past returns. Positions change monthly or quarterly, with financing and trading costs charged.
+
+Use finer data without trading more often
+The new tests separate overnight returns from trading-session moves, and use hourly and five-minute observations. Every comparison shares dates within its family. More bars help estimate exposure, but do not create more independent years.
+
+Two uses of principal components
+Principal components can describe common mining-company risk, or reduce noisy directions among permitted assets. Peer-stock components stay in the explanatory study. Investable components are converted back into positions in metals, equities, rates, oil and currencies.
+
+Intraday information brings a small recent gain
+For Wheaton, recent daily tracking R squared is about point six six using daily estimates, point six five using hourly daytime estimates, and point six seven after adding overnight moves. The small improvement remains statistically uncertain.
+
+A shared factor explains much of the missing movement
+The longer Wheaton diagnostic rises from about point five seven to point seven eight with one peer residual component. That removes almost half the remaining squared error. This explains shared mining risk; it is not a permitted trading portfolio.
+
+The tradable tests do not reproduce that gain
+Reducing permitted-asset portfolios to fewer principal directions does not deliver a dependable improvement. Long-history metals plus broad equities still track Wheaton better than metals alone. Tracking and compounding remain separate tests, and all results are historical exploration.

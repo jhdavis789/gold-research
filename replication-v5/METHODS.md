@@ -1,3 +1,7 @@
+# Financing correction
+
+The new [v7 evidence](../replication-v7/) corrects actual-day financing and long-calendar-gap filtering. The two daily-calibrated explorer choices are updated. Other v5 results remain a preserved historical edition and are not represented as recalculated here.
+
 # Daily company replication: methods and boundaries
 
 This is the next research pass after the monthly-calibrated v3/v4 studies. Source cutoff September 30, 2026. Twenty surviving USD-listed companies. All comparisons use each company's same available dates; shorter histories remain explicit.

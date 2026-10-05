@@ -1,3 +1,7 @@
+# Financing correction
+
+The new [v7 evidence](../replication-v7/) corrects actual-day financing and long-calendar-gap filtering. The two daily-calibrated explorer choices are updated. Other v5 results remain a preserved historical edition and are not represented as recalculated here.
+
 # New daily-calibrated techniques
 
 Two additional choices fit on daily returns and retain quarterly trades: gold/silver, and gold/silver plus broad equities. They use the same per-company dates but the [v5 methods](../replication-v5/METHODS.md). The original seven choices below retain the previous monthly calibration.
