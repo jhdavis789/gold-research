@@ -1,6 +1,6 @@
 # Sources and measurement
 
-Daily total-return and raw open/close snapshots: registered Yahoo chart family, issuer-specific coverage through September30,2026. Hourly raw OHLCV: October7,2024–September30,2026; five-minute raw OHLCV: August10–September30,2026. Securities are synchronized to exact New York regular-session bar grids; incomplete or zero-volume grids are excluded, prices are never forward-filled. Recent sampling can contain trade-price and timing noise. Private raw replies and quote levels are not redistributed.
+Daily total-return and raw open/close snapshots: [Yahoo chart API](https://query1.finance.yahoo.com/v8/finance/chart/WPM) and [issuer historical-price page](https://finance.yahoo.com/quote/WPM/history/), issuer-specific coverage through September30,2026. The same chart endpoint family supplies all listed securities. Hourly raw OHLCV: October7,2024–September30,2026; five-minute raw OHLCV: August10–September30,2026. Securities are synchronized to exact New York regular-session bar grids; incomplete or zero-volume grids are excluded, prices are never forward-filled. Recent sampling can contain trade-price and timing noise. Private raw replies and quote levels are not redistributed.
 
 Existing GLD/SLV/BIL/SPY/TLT/USO/FXA/FXC history supplies funded proxies. Cash and financing accrue by actual elapsed days. Adjusted total-return units imply dividend reinvestment. Portfolio results include modeled costs; explanatory PCA diagnostics contain no investable wealth claim. No miner index or peer stock is held in a replica.
 

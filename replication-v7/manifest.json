@@ -4,7 +4,7 @@
   "transcript.txt": "624111b7a02e0bd46d219e33d4d7b717f2ffd63b191fd61f5382fbfb4090983b",
   "index.html": "5931875c18f49908d04d29965b493469b308050744b23aab49be4f4618660d5d",
   "FOLLOWUP.md": "b573dba0780b2f990abb922ba15d05990e7c76cd63a6937775fe29579456f07b",
-  "SOURCES.md": "4ccf2bf5693a0fb577ede950f52079a578351b830ad82bbb7e0f7b55b4c02e2c",
+  "SOURCES.md": "14b54e2c359bcc7dcda06a96def4de14cc513df131dd0c1db0cef4ed008bbda8",
   "METHODS.md": "4552ed2a8196e292874c7d97e5c99aa57f81576f40990abbc480e46b8b812953",
   "RESULTS.md": "18e21e81f04127a2afc45d6170da22c232c64b16732e97ce90ab2025c05c97d7",
   "rolling-results.csv": "8ca5c28fe46c63af29032cbe7539c9da2e601e0d6f8b3250940bfdf56934c7d7",
@@ -23,5 +23,5 @@
   "source/common.py": "328dba8b2fe5fc2612c0348a03dc0833f866c625c8f09a48d7287f7500a16905",
   "source/five_uncertainty.py": "4da4a469ba88d3fb5a69d72a178e37cb64c9c049131f2f655ee7a646c8739eda",
   "source/pca.py": "74fc60a24e9f6c81cea60fa8f2de1c5e1afb0a680ee132d7cdeb7f47cac8f632",
-  "source/report.py": "d1da155696b1fa30841caa0969727f5c69a9fec36d94a5bb6f994d2a84a35e0b"
+  "source/report.py": "6e1a649adafd36d4baafe166562e8ed473fc1b9c0287228c72621bca53e9f0cb"
 }
