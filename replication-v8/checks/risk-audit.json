@@ -1,0 +1,295 @@
+{
+  "passed": true,
+  "accounts": 40,
+  "decisions": 4510,
+  "max_weight_error": 4.440892098500626e-15,
+  "max_NAV_error": 4.440892098500626e-14,
+  "account_checks": [
+    {
+      "stock": "NEM",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 4.440892098500626e-14,
+      "decisions": 182,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "NEM",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 3.552713678800501e-15,
+      "decisions": 61,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "AEM",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 3.552713678800501e-15,
+      "decisions": 182,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "AEM",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 3.552713678800501e-15,
+      "decisions": 61,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "B",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 7.105427357601002e-15,
+      "decisions": 182,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "B",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 1.3322676295501878e-15,
+      "decisions": 61,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "AU",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 1.2434497875801753e-14,
+      "decisions": 182,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "AU",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 7.105427357601002e-15,
+      "decisions": 61,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "FNV",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 2.042810365310288e-14,
+      "decisions": 177,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "FNV",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 2.6645352591003757e-15,
+      "decisions": 59,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "WPM",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 1.9539925233402755e-14,
+      "decisions": 182,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "WPM",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 3.552713678800501e-15,
+      "decisions": 61,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "RGLD",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 1.7763568394002505e-14,
+      "decisions": 182,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "RGLD",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 5.329070518200751e-15,
+      "decisions": 61,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "GFI",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 3.552713678800501e-15,
+      "decisions": 182,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "GFI",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 2.1316282072803006e-14,
+      "decisions": 61,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "KGC",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 8.881784197001252e-15,
+      "decisions": 182,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "KGC",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 1.7763568394002505e-15,
+      "decisions": 61,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "HMY",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 1.9539925233402755e-14,
+      "decisions": 182,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "HMY",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 1.7763568394002505e-15,
+      "decisions": 61,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "EGO",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 4.440892098500626e-15,
+      "decisions": 182,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "EGO",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 3.1086244689504383e-15,
+      "decisions": 61,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "IAG",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 3.552713678800501e-15,
+      "decisions": 182,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "IAG",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 1.7763568394002505e-15,
+      "decisions": 61,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "BTG",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 2.6645352591003757e-15,
+      "decisions": 171,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "BTG",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 2.6645352591003757e-15,
+      "decisions": 57,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "OR",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 7.105427357601002e-15,
+      "decisions": 74,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "OR",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 1.3322676295501878e-15,
+      "decisions": 25,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "DRD",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 4.263256414560601e-14,
+      "decisions": 182,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "DRD",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 3.552713678800501e-15,
+      "decisions": 61,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "SSRM",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 7.105427357601002e-15,
+      "decisions": 182,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "SSRM",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 6.217248937900877e-15,
+      "decisions": 61,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "CDE",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 3.552713678800501e-15,
+      "decisions": 182,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "CDE",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 1.7763568394002505e-15,
+      "decisions": 61,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "EQX",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 3.552713678800501e-15,
+      "decisions": 44,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "EQX",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 3.552713678800501e-15,
+      "decisions": 15,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "SA",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 7.993605777301127e-15,
+      "decisions": 182,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "SA",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 1.7763568394002505e-15,
+      "decisions": 61,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "NG",
+      "model": "volatility_gold_m",
+      "max_NAV_error": 1.7763568394002505e-15,
+      "decisions": 182,
+      "metrics_reconciled": true
+    },
+    {
+      "stock": "NG",
+      "model": "volatility_gold_q",
+      "max_NAV_error": 8.881784197001252e-16,
+      "decisions": 61,
+      "metrics_reconciled": true
+    }
+  ],
+  "source_hashes": {
+    "risk_control.py": "7354420bc6402f770646231ebd2f8be4bb170d5d9011f1eedf5e333db83277a5",
+    "RISK-CONTROL-DESIGN.md": "0077c774bb04498e46c1107ff55e011214f7343a7813c686345a68f0ea66e8b5",
+    "run.py": "8592a5a9bfb832ec6c9aca79fdd2ff2afcfd6447b84f5bcc62394ee92ab85275",
+    "data.py": "00e34cf14188ec39fd4e99ce5f69cab8bbf8429b5e7f1bdd32df71a423289733"
+  }
+}

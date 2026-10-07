@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "check": "Put-call parity, intrinsic value and bounded spread payoffs",
+      "passed": true,
+      "details": true
+    },
+    {
+      "check": "Expired contracts fix payoff and become cash; later spot moves cannot resurrect them",
+      "passed": true,
+      "details": 20
+    },
+    {
+      "check": "Exact pre-cost daily template compounds to paid-engine replay when all fees are zero",
+      "passed": true,
+      "details": 1.865174681370263e-14
+    },
+    {
+      "check": "Daily and compounded multi-horizon analytic gradients",
+      "passed": true,
+      "details": 5.576226008718876e-10
+    },
+    {
+      "check": "Execution-day and future shocks cannot change earlier estimates",
+      "passed": true,
+      "details": 0.0
+    },
+    {
+      "check": "All retained accounts: horizon/statistic reproduction, cutoffs, calendars, nested criteria, limits, premiums and cost stress",
+      "passed": true,
+      "details": {
+        "accounts": 520,
+        "fits": 58630,
+        "solver_failures": 0
+      }
+    },
+    {
+      "check": "Past-volatility controls: same-date arithmetic, causal weights and paid replay",
+      "passed": true,
+      "details": {
+        "accounts": 40,
+        "status": "passed"
+      }
+    }
+  ],
+  "engine_sha256": "8592a5a9bfb832ec6c9aca79fdd2ff2afcfd6447b84f5bcc62394ee92ab85275",
+  "accounts": 520,
+  "fits": 58630,
+  "solver_failures": 0
+}

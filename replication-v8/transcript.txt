@@ -1,0 +1,17 @@
+Learn from daily moves; trade quarterly or monthly
+Daily moves help identify exposure and curvature from past prices. Holdings stay fixed between monthly or quarterly trades. We test tracking from daily to annual horizons, and compare accumulated wealth.
+
+Gold, silver and rates; sixty option structures
+The toolkit includes gold and silver, an explicit Treasury holding, cash, and sixty modeled option structures across strikes and maturities. Bounded spreads can change curvature. Broad equities enter one separate extension. Mining peers and a miner index are excluded from the portfolio.
+
+Fit the same paid account at several horizons
+Each fit pays assumed trading and financing costs. Daily-only fits compete with two blends of daily, quarterly and annual errors. Adding options preserves a feasible simpler portfolio, but better training fit cannot guarantee better later performance.
+
+Annual fit and daily fit pull in different directions
+For Wheaton, metals and rates have daily tracking R squared of point five four, and annual tracking of point seven three. The daily-priority option blend reaches point five two and point seven four. Adding broad equities reaches point eight one annually, with point five three daily.
+
+Matching fluctuations does not ensure matching wealth
+Above the scatter’s diagonal, the stock earned more over five years. Across the full fifteen-year period, Wheaton compounds at 10.4 percent annually. The daily-priority option model earns 3.2 percent; the broad-equity extension earns 10.3 percent. Costs and accumulated return gaps matter.
+
+The shared residual remains difficult to recreate
+Against changing metals and rates, daily-fit options improve tracking for 8 of twenty companies daily, and 6 annually. Peer-residual translation fails in these tests. These historical results use hypothetical option prices and support partial replication.

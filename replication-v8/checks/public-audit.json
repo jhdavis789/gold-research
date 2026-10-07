@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "public_accounts_checked": 560,
+  "fitted_accounts": 520,
+  "risk_accounts": 40,
+  "decisions": 63140,
+  "solver_failures": 0,
+  "max_source_public_metric_error": 0.0,
+  "all_monthly_paths_within_declared_rounding": true,
+  "rolling_windows_checked": 225372,
+  "compact_Greek_rows_checked": 27,
+  "paired_comparisons_checked": 18,
+  "aggregate_rows_checked": 28,
+  "profit_summary_rows_checked": 84,
+  "preserved_v7_benchmarks_checked": 20,
+  "artifact_hashes": {
+    "evidence.json": "6d32375990363e54de4551a08f3e8814abf6ac9a975426cd6a4b0b93e49923b0",
+    "all-results.csv": "83264a2501a38a40b86821bfad7cbde3addca778cacb597df259806a5bd41962",
+    "rolling-results.csv": "148a3ffcaefff8d7553faf47894db96fc570ebe714d40cb304d591a71c970636",
+    "RESULTS.md": "6059cb6537205d5959fa7e88bf2119384469604e20a8849bb0428aa5c72478e2"
+  }
+}

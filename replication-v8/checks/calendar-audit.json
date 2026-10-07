@@ -1,0 +1,125 @@
+{
+  "passed": true,
+  "teacher_interval_alignment": [
+    {
+      "stock": "NEM",
+      "interval_mismatches": 0,
+      "source_return_error": 0.0
+    },
+    {
+      "stock": "AEM",
+      "interval_mismatches": 0,
+      "source_return_error": 0.0
+    },
+    {
+      "stock": "B",
+      "interval_mismatches": 0,
+      "source_return_error": 0.0
+    },
+    {
+      "stock": "AU",
+      "interval_mismatches": 0,
+      "source_return_error": 0.0
+    },
+    {
+      "stock": "FNV",
+      "interval_mismatches": 0,
+      "source_return_error": 0.0
+    },
+    {
+      "stock": "WPM",
+      "interval_mismatches": 0,
+      "source_return_error": 0.0
+    },
+    {
+      "stock": "RGLD",
+      "interval_mismatches": 0,
+      "source_return_error": 0.0
+    }
+  ],
+  "all_loaded_index_units": [
+    {
+      "stock": "NEM",
+      "loaded_index_unit": "ns"
+    },
+    {
+      "stock": "AEM",
+      "loaded_index_unit": "ns"
+    },
+    {
+      "stock": "B",
+      "loaded_index_unit": "ns"
+    },
+    {
+      "stock": "AU",
+      "loaded_index_unit": "ns"
+    },
+    {
+      "stock": "FNV",
+      "loaded_index_unit": "ns"
+    },
+    {
+      "stock": "WPM",
+      "loaded_index_unit": "ns"
+    },
+    {
+      "stock": "RGLD",
+      "loaded_index_unit": "ns"
+    },
+    {
+      "stock": "GFI",
+      "loaded_index_unit": "ns"
+    },
+    {
+      "stock": "KGC",
+      "loaded_index_unit": "ns"
+    },
+    {
+      "stock": "HMY",
+      "loaded_index_unit": "ns"
+    },
+    {
+      "stock": "EGO",
+      "loaded_index_unit": "ns"
+    },
+    {
+      "stock": "IAG",
+      "loaded_index_unit": "ns"
+    },
+    {
+      "stock": "BTG",
+      "loaded_index_unit": "ns"
+    },
+    {
+      "stock": "OR",
+      "loaded_index_unit": "ns"
+    },
+    {
+      "stock": "DRD",
+      "loaded_index_unit": "ns"
+    },
+    {
+      "stock": "SSRM",
+      "loaded_index_unit": "ns"
+    },
+    {
+      "stock": "CDE",
+      "loaded_index_unit": "ns"
+    },
+    {
+      "stock": "EQX",
+      "loaded_index_unit": "ns"
+    },
+    {
+      "stock": "SA",
+      "loaded_index_unit": "ns"
+    },
+    {
+      "stock": "NG",
+      "loaded_index_unit": "ns"
+    }
+  ],
+  "bank_ns_vs_us_max_error": 0.0,
+  "serialized_metric_ns_vs_us_identical": true,
+  "paid_kernel_precondition": "The deployed load() normalizes to nanoseconds. cost_training.asi8 arithmetic assumes that normalization; arbitrary externally constructed panels require it too."
+}

@@ -1,0 +1,127 @@
+{
+  "passed": true,
+  "paid_paths": [
+    {
+      "stock": "NEM",
+      "model": "conditional_options_daily_m",
+      "cadence": "m",
+      "max_NAV_error": 3.9968028886505635e-15,
+      "max_ledger_error": 3.774758283725532e-15,
+      "settlement_events": 0,
+      "changing_fitted_weights": true,
+      "daily_horizon_CAGR_metrics_match": true
+    },
+    {
+      "stock": "NEM",
+      "model": "conditional_options_daily_q",
+      "cadence": "q",
+      "max_NAV_error": 5.329070518200751e-15,
+      "max_ledger_error": 2.6645352591003757e-15,
+      "settlement_events": 60,
+      "changing_fitted_weights": true,
+      "daily_horizon_CAGR_metrics_match": true
+    },
+    {
+      "stock": "AEM",
+      "model": "conditional_options_daily_m",
+      "cadence": "m",
+      "max_NAV_error": 1.9984014443252818e-15,
+      "max_ledger_error": 1.2212453270876722e-15,
+      "settlement_events": 0,
+      "changing_fitted_weights": true,
+      "daily_horizon_CAGR_metrics_match": true
+    },
+    {
+      "stock": "AEM",
+      "model": "conditional_options_daily_q",
+      "cadence": "q",
+      "max_NAV_error": 2.220446049250313e-15,
+      "max_ledger_error": 1.3322676295501878e-15,
+      "settlement_events": 60,
+      "changing_fitted_weights": true,
+      "daily_horizon_CAGR_metrics_match": true
+    },
+    {
+      "stock": "B",
+      "model": "conditional_options_daily_m",
+      "cadence": "m",
+      "max_NAV_error": 1.1102230246251565e-15,
+      "max_ledger_error": 8.881784197001252e-16,
+      "settlement_events": 0,
+      "changing_fitted_weights": true,
+      "daily_horizon_CAGR_metrics_match": true
+    },
+    {
+      "stock": "B",
+      "model": "conditional_options_daily_q",
+      "cadence": "q",
+      "max_NAV_error": 3.552713678800501e-15,
+      "max_ledger_error": 2.220446049250313e-15,
+      "settlement_events": 60,
+      "changing_fitted_weights": true,
+      "daily_horizon_CAGR_metrics_match": true
+    },
+    {
+      "stock": "AU",
+      "model": "conditional_options_daily_m",
+      "cadence": "m",
+      "max_NAV_error": 6.217248937900877e-15,
+      "max_ledger_error": 6.439293542825908e-15,
+      "settlement_events": 0,
+      "changing_fitted_weights": true,
+      "daily_horizon_CAGR_metrics_match": true
+    },
+    {
+      "stock": "AU",
+      "model": "conditional_options_daily_q",
+      "cadence": "q",
+      "max_NAV_error": 2.398081733190338e-14,
+      "max_ledger_error": 1.7763568394002505e-14,
+      "settlement_events": 60,
+      "changing_fitted_weights": true,
+      "daily_horizon_CAGR_metrics_match": true
+    },
+    {
+      "stock": "AU",
+      "model": "options_balanced_q",
+      "cadence": "q",
+      "max_NAV_error": 2.3092638912203256e-14,
+      "max_ledger_error": 2.1316282072803006e-14,
+      "settlement_events": 60,
+      "changing_fitted_weights": true,
+      "daily_horizon_CAGR_metrics_match": true
+    },
+    {
+      "stock": "WPM",
+      "model": "equity_conditional_options_balanced_q",
+      "cadence": "q",
+      "max_NAV_error": 1.3322676295501878e-14,
+      "max_ledger_error": 1.1546319456101628e-14,
+      "settlement_events": 60,
+      "changing_fitted_weights": true,
+      "daily_horizon_CAGR_metrics_match": true
+    },
+    {
+      "stock": "WPM",
+      "model": "conditional_options_daily_priority_q",
+      "cadence": "q",
+      "max_NAV_error": 5.551115123125783e-16,
+      "max_ledger_error": 4.440892098500626e-16,
+      "settlement_events": 60,
+      "changing_fitted_weights": true,
+      "daily_horizon_CAGR_metrics_match": true
+    }
+  ],
+  "recorded_execution_caps_active": 1,
+  "greeks": {
+    "structures": 60,
+    "negative_gamma_structures": 12,
+    "max_absolute_finite_difference_error": 6.598848889538544e-07
+  },
+  "source_hashes": {
+    "run.py": "8592a5a9bfb832ec6c9aca79fdd2ff2afcfd6447b84f5bcc62394ee92ab85275",
+    "summarize.py": "6420f99338fcec8e37ad0e78e877332d0460aca3303bdcfab73058fe6d4a8cd3",
+    "teacher.py": "ad34ce098902b3d1089173401474886576a5b102856479e4072f9c900892e5f9",
+    "risk_control.py": "7354420bc6402f770646231ebd2f8be4bb170d5d9011f1eedf5e333db83277a5"
+  }
+}

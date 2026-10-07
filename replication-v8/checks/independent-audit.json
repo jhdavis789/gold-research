@@ -1,0 +1,22 @@
+{
+  "checks": {
+    "expired_option_cash_only_after_payment": {
+      "max_nav_error": 0.0,
+      "payouts": 1
+    },
+    "paid_funding_short_live_roll_and_liquidation": {
+      "max_nav_error": 1.1102230246251565e-16
+    },
+    "vertical_spread_payoffs_nonnegative_and_capped_at_strike_width": true,
+    "affine_training_templates_equal_independent_pre_cost_cashflows": {
+      "max_daily_return_error": 1.3322676295501878e-15
+    },
+    "daily_and_compounded_horizon_derivatives": {
+      "cases": 8,
+      "max_relative_error": 7.163371463993944e-10
+    },
+    "future_prices_volatility_and_states_do_not_change_training_criterion": true
+  },
+  "passed": true,
+  "engine_sha256": "750e16cba988f45fb029bd727a11e387ec9fa3eeb5f0ac6301f0ac86b0f6765c"
+}

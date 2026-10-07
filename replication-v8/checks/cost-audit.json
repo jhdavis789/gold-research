@@ -1,0 +1,130 @@
+{
+  "passed": true,
+  "native_vs_Python_cash": {
+    "cases": 12,
+    "max_cash_error": 7.105427357601002e-15,
+    "max_gradient_error": 1.3322676295501878e-14
+  },
+  "paid_accounts": [
+    {
+      "calendar_months": 1,
+      "execution_cap_active": false,
+      "settlement_events": 0,
+      "max_compounded_NAV_error": 3.708144902248023e-14,
+      "max_daily_gradient_error": 6.488933514792865e-10
+    },
+    {
+      "calendar_months": 1,
+      "execution_cap_active": true,
+      "settlement_events": 0,
+      "max_compounded_NAV_error": 1.2989609388114332e-14,
+      "max_daily_gradient_error": 1.3991596123022547e-09
+    },
+    {
+      "calendar_months": 3,
+      "execution_cap_active": false,
+      "settlement_events": 160,
+      "max_compounded_NAV_error": 4.3520742565306136e-14,
+      "max_daily_gradient_error": 5.928396420094542e-10
+    },
+    {
+      "calendar_months": 3,
+      "execution_cap_active": true,
+      "settlement_events": 160,
+      "max_compounded_NAV_error": 3.352873534367973e-14,
+      "max_daily_gradient_error": 1.294194991550104e-09
+    }
+  ],
+  "objective_cases": [
+    {
+      "calendar_months": 1,
+      "conditional": false,
+      "daily_weight": 1.0,
+      "balanced": false,
+      "max_objective_gradient_error": 3.245052942615479e-09
+    },
+    {
+      "calendar_months": 1,
+      "conditional": false,
+      "daily_weight": 0.5,
+      "balanced": true,
+      "max_objective_gradient_error": 1.8051147655911893e-07
+    },
+    {
+      "calendar_months": 1,
+      "conditional": false,
+      "daily_weight": 0.8,
+      "balanced": true,
+      "max_objective_gradient_error": 7.495079909077847e-08
+    },
+    {
+      "calendar_months": 1,
+      "conditional": true,
+      "daily_weight": 1.0,
+      "balanced": false,
+      "max_objective_gradient_error": 3.5324112756661217e-09
+    },
+    {
+      "calendar_months": 1,
+      "conditional": true,
+      "daily_weight": 0.5,
+      "balanced": true,
+      "max_objective_gradient_error": 1.7571949965905746e-07
+    },
+    {
+      "calendar_months": 1,
+      "conditional": true,
+      "daily_weight": 0.8,
+      "balanced": true,
+      "max_objective_gradient_error": 7.325042372413955e-08
+    },
+    {
+      "calendar_months": 3,
+      "conditional": false,
+      "daily_weight": 1.0,
+      "balanced": false,
+      "max_objective_gradient_error": 2.663902504242684e-09
+    },
+    {
+      "calendar_months": 3,
+      "conditional": false,
+      "daily_weight": 0.5,
+      "balanced": true,
+      "max_objective_gradient_error": 3.339055422027197e-08
+    },
+    {
+      "calendar_months": 3,
+      "conditional": false,
+      "daily_weight": 0.8,
+      "balanced": true,
+      "max_objective_gradient_error": 1.6710094318484728e-08
+    },
+    {
+      "calendar_months": 3,
+      "conditional": true,
+      "daily_weight": 1.0,
+      "balanced": false,
+      "max_objective_gradient_error": 2.4899216130846913e-09
+    },
+    {
+      "calendar_months": 3,
+      "conditional": true,
+      "daily_weight": 0.5,
+      "balanced": true,
+      "max_objective_gradient_error": 3.87854809408399e-08
+    },
+    {
+      "calendar_months": 3,
+      "conditional": true,
+      "daily_weight": 0.8,
+      "balanced": true,
+      "max_objective_gradient_error": 1.8950354897249664e-08
+    }
+  ],
+  "future_perturbation_unchanged": true,
+  "run_sha256": "8592a5a9bfb832ec6c9aca79fdd2ff2afcfd6447b84f5bcc62394ee92ab85275",
+  "cost_training_sha256": "668d5c460dd402f855dcebd41b32f38042d05a7e4592d47326b5085fa97bce27",
+  "cash_kernel_sha256": "9304ef8342a630a89bba0729afc250c52cd1ee99beda8ffa6e0ccabce9f13a9a",
+  "cash_c_sha256": "7a09de5fc2ab267d90a36560aa6d49dfa47c3947cbd1bc37e318aadd36e39a05",
+  "cash_binary_sha256": "edf201025ae239394f3e9460541641ff8fd128498950d0398397920acf20119d"
+}
